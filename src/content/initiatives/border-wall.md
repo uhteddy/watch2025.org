@@ -8,6 +8,7 @@ agency: "Department of Homeland Security"
 impactAreas:
   - "Border security"
   - "Immigration enforcement"
+  - "Citizenship"
 relatedInitiatives:
   - "mass-deportations"
   - "expanding-e-verify"
