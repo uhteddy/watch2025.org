@@ -1,29 +1,35 @@
 ---
+// Define proper types for the status prop
+type InitiativeStatus = 'passed' | 'in-progress' | 'proposed' | 'blocked';
+
+interface Props {
+  status: InitiativeStatus;
+}
+
 const { status } = Astro.props;
 
-const getStatusColor = (status) => {
-  switch (status) {
-    case 'passed':
-      return 'bg-green-100 text-green-800';
-    case 'in-progress':
-      return 'bg-blue-100 text-blue-800';
-    case 'proposed':
-      return 'bg-yellow-100 text-yellow-800';
-    case 'blocked':
-      return 'bg-red-100 text-red-800';
-    default:
-      return 'bg-gray-100 text-gray-800';
-  }
+const getStatusColor = (status: InitiativeStatus): string => {
+  const colors = {
+    'passed': 'bg-green-100 text-green-800',
+    'in-progress': 'bg-yellow-100 text-yellow-800',
+    'proposed': 'bg-blue-100 text-blue-800',
+    'blocked': 'bg-red-100 text-red-800'
+  };
+  
+  return colors[status] || 'bg-gray-100 text-gray-800';
 };
 
-const statusText = {
+// Define the status text mapping with proper types
+const statusText: Record<InitiativeStatus, string> = {
   'passed': 'Passed',
   'in-progress': 'In Progress',
   'proposed': 'Proposed',
   'blocked': 'Blocked'
-}
+};
+
+const statusClass = getStatusColor(status);
 ---
 
-<span class={`inline-block px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(status)}`}>
+<span class={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${statusClass}`}>
   {statusText[status] || status}
 </span>
