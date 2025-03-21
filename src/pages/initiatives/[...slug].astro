@@ -1,0 +1,125 @@
+---
+import "../../styles/global.css";
+import { getCollection, type CollectionEntry } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import StatusBadge from '../../components/StatusBadge.astro';
+
+interface Props {
+  entry: CollectionEntry<'initiatives'>;
+}
+
+export async function getStaticPaths() {
+  const initiatives = await getCollection('initiatives');
+  return initiatives.map((entry: Props) => ({
+    params: { slug: entry.slug }, 
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<Layout title={entry.data.title}>
+  <main class="container mx-auto px-4 py-8 max-w-3xl">
+    <a href="/" class="text-blue-600 hover:underline mb-4 inline-block">&larr; Back to all initiatives</a>
+    
+    <div class="mb-6">
+      <StatusBadge status={entry.data.status} />
+      <h1 class="text-3xl font-bold mt-2">{entry.data.title}</h1>
+      <p class="text-xl text-gray-600 mt-2">{entry.data.description}</p>
+    </div>
+    
+    <div class="bg-gray-50 p-4 rounded-lg mb-8">
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <p class="text-sm text-gray-500">Category</p>
+          <p class="font-medium">{entry.data.category}</p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500">Proposed</p>
+          <p class="font-medium">{entry.data.dateProposed.toLocaleDateString()}</p>
+        </div>
+        {entry.data.datePassed && (
+          <div>
+            <p class="text-sm text-gray-500">Passed</p>
+            <p class="font-medium">{entry.data.datePassed.toLocaleDateString()}</p>
+          </div>
+        )}
+      </div>
+    </div>
+
+    <article class="prose max-w-none">
+      <Content />
+    </article>
+    
+    {entry.data.sources && entry.data.sources.length > 0 && (
+      <div class="mt-8 border-t pt-6">
+        <h2 class="text-xl font-bold mb-4">Sources</h2>
+        <ul class="space-y-2">
+          {entry.data.sources.map(source => (
+            <li>
+              <a href={source.url} class="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">
+                {source.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+    
+    {/* Pull Request History Section */}
+    {entry.data.pullRequests && Array.isArray(entry.data.pullRequests) && entry.data.pullRequests.length > 0 && (
+      <div class="mt-8 border-t pt-6">
+        <h2 class="text-xl font-bold mb-4">Page History</h2>
+        <div class="bg-gray-50 rounded-lg p-4">
+          <p class="text-sm mb-4">
+            This initiative has been updated through the following pull requests, 
+            showing the full history of community contributions:
+          </p>
+          <ul class="space-y-4">
+            {entry.data.pullRequests.map(pr => (
+              <li class="border-b border-gray-200 pb-3 last:border-b-0">
+                <div class="flex items-start">
+                  <div class="flex-shrink-0 mt-1">
+                    <svg class="h-5 w-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                  </div>
+                  <div class="ml-3">
+                    <h3 class="text-base font-medium">
+                      <a href={pr.url} class="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">
+                        PR #{pr.number}: {pr.title}
+                      </a>
+                    </h3>
+                    <p class="text-sm text-gray-600">
+                      Contributed by <span class="font-medium">{pr.author}</span> • 
+                      Merged on {new Date(pr.mergedAt).toLocaleDateString()}
+                    </p>
+                    {pr.description && (
+                      <p class="text-sm mt-1">{pr.description}</p>
+                    )}
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    )}
+    
+    <div class="mt-12 border-t pt-6">
+      <p class="text-gray-600">
+        This information is community-maintained. 
+        <a 
+          href={`https://github.com/yourusername/project2025-tracker/edit/main/src/content/initiatives/${entry.slug}.md`} 
+          class="text-blue-600 hover:underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Edit this page on GitHub
+        </a>
+      </p>
+    </div>
+  </main>
+</Layout>

@@ -1,11 +1,72 @@
 ---
-import Welcome from '../components/Welcome.astro';
+import "../styles/global.css";
 import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import StatusBadge from '../components/StatusBadge.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// Get all initiatives, sorted by most recently passed
+const initiatives = await getCollection('initiatives');
+const passedInitiatives = initiatives
+  .filter(i => i.data.status === 'passed')
+  .sort((a, b) => {
+    if (!a.data.datePassed || !b.data.datePassed) return 0;
+    return b.data.datePassed.getTime() - a.data.datePassed.getTime();
+  });
+
+const inProgressInitiatives = initiatives
+  .filter(i => i.data.status === 'in-progress')
+  .sort((a, b) => a.data.dateProposed.getTime() - b.data.dateProposed.getTime());
+
+// Get categories for filtering
+const categories = [...new Set(initiatives.map(i => i.data.category))];
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Project 2025 Tracker">
+  <main class="container mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold mb-8">Project 2025 Tracker</h1>
+    
+    <div class="mb-8">
+      <p class="text-lg">
+        This site tracks the status of initiatives from Project 2025. Data is community-maintained
+        through GitHub contributions.
+      </p>
+      <div class="mt-4">
+        <a href="https://github.com/yourusername/project2025-tracker" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+          Contribute on GitHub
+        </a>
+      </div>
+    </div>
+
+    <div class="mb-12">
+      <h2 class="text-2xl font-bold mb-4">Passed Initiatives</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {passedInitiatives.map(initiative => (
+          <a href={`/initiatives/${initiative.slug}`} class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
+            <StatusBadge status={initiative.data.status} />
+            <h3 class="text-xl font-semibold mt-2">{initiative.data.title}</h3>
+            <p class="text-gray-600 mt-1">{initiative.data.description}</p>
+            <div class="text-sm text-gray-500 mt-4">
+              Passed: {initiative.data.datePassed?.toLocaleDateString()}
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold mb-4">In Progress Initiatives</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {inProgressInitiatives.map(initiative => (
+          <a href={`/initiatives/${initiative.slug}`} class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
+            <StatusBadge status={initiative.data.status} />
+            <h3 class="text-xl font-semibold mt-2">{initiative.data.title}</h3>
+            <p class="text-gray-600 mt-1">{initiative.data.description}</p>
+            <div class="text-sm text-gray-500 mt-4">
+              Proposed: {initiative.data.dateProposed.toLocaleDateString()}
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </main>
 </Layout>
