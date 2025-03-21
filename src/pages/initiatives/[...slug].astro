@@ -32,33 +32,53 @@ if (!entry) {
 }
 const { Content } = await entry.render();
 
-// Get status-specific colors and icons
+// Define deeper, more dramatic colors based on status
 const statusConfig = {
   'passed': {
-    bgColor: 'bg-green-100',
-    textColor: 'text-green-800',
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    bgColor: 'bg-gradient-to-r from-green-900 to-green-800',
+    textColor: 'text-green-100',
+    borderColor: 'border-green-700',
+    lightBg: 'bg-green-100',
+    darkBg: 'bg-green-900',
+    accentColor: 'text-green-400',
+    buttonBg: 'bg-green-700 hover:bg-green-600',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
           </svg>`
   },
   'in-progress': {
-    bgColor: 'bg-yellow-100',
-    textColor: 'text-yellow-800',
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    bgColor: 'bg-gradient-to-r from-yellow-900 to-yellow-800',
+    textColor: 'text-yellow-100',
+    borderColor: 'border-yellow-700',
+    lightBg: 'bg-yellow-100',
+    darkBg: 'bg-yellow-900',
+    accentColor: 'text-yellow-400',
+    buttonBg: 'bg-yellow-700 hover:bg-yellow-600',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>`
   },
   'proposed': {
-    bgColor: 'bg-blue-100',
-    textColor: 'text-blue-800',
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    bgColor: 'bg-gradient-to-r from-blue-900 to-blue-800',
+    textColor: 'text-blue-100',
+    borderColor: 'border-blue-700',
+    lightBg: 'bg-blue-100',
+    darkBg: 'bg-blue-900',
+    accentColor: 'text-blue-400',
+    buttonBg: 'bg-blue-700 hover:bg-blue-600',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
           </svg>`
   },
   'blocked': {
-    bgColor: 'bg-red-100',
-    textColor: 'text-red-800',
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    bgColor: 'bg-gradient-to-r from-red-900 to-red-800',
+    textColor: 'text-red-100',
+    borderColor: 'border-red-700',
+    lightBg: 'bg-red-100',
+    darkBg: 'bg-red-900',
+    accentColor: 'text-red-400',
+    buttonBg: 'bg-red-700 hover:bg-red-600',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
           </svg>`
   }
@@ -68,11 +88,19 @@ const statusData = statusConfig[entry.data.status];
 ---
 
 <Layout title={entry.data.title}>
-  <!-- Hero Section with gradient based on status -->
-  <div class={`${statusData.bgColor} border-b border-gray-200`}>
-    <div class="container mx-auto px-4 py-8">
-      <div class="mb-4">
-        <a href="/" class="inline-flex items-center text-gray-700 hover:text-blue-600 font-medium transition-colors">
+  <!-- Hero Section with dramatic styling based on status -->
+  <div class={`${statusData.bgColor} relative overflow-hidden`}>
+    <!-- Background pattern -->
+    <div class="absolute inset-0 z-0 opacity-20">
+      <div class="absolute inset-0 bg-black mix-blend-multiply"></div>
+      <div class="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-black to-transparent opacity-30"></div>
+      <div class="absolute top-24 left-0 w-full h-px bg-white opacity-10"></div>
+      <div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-black to-transparent opacity-20"></div>
+    </div>
+    
+    <div class="container mx-auto px-4 py-12 relative z-10">
+      <div class="mb-6">
+        <a href="/" class={`inline-flex items-center ${statusData.textColor} hover:text-white font-medium transition-colors`}>
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
           </svg>
@@ -80,174 +108,287 @@ const statusData = statusConfig[entry.data.status];
         </a>
       </div>
       
-      <div class="flex items-start">
+      <div class="md:flex items-start">
         <div class="flex-grow">
-          <div class="flex items-center mb-3">
-            <div class="w-10 h-10 rounded-full flex items-center justify-center mr-3" set:html={statusData.icon}></div>
-            <StatusBadge status={entry.data.status} />
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-14 h-14 rounded-full flex items-center justify-center bg-black bg-opacity-30 backdrop-blur-sm shadow-lg" set:html={statusData.icon}></div>
+            <StatusBadge status={entry.data.status} size="large" />
           </div>
-          <h1 class="text-4xl font-bold mb-2">{entry.data.title}</h1>
-          <p class="text-xl text-gray-700">{entry.data.description}</p>
+          
+          <h1 class={`text-4xl md:text-5xl font-bold mb-4 ${statusData.textColor}`}>{entry.data.title}</h1>
+          <p class="text-xl text-white text-opacity-90 max-w-3xl">{entry.data.description}</p>
+        </div>
+        
+        <div class="hidden md:block mt-4 md:mt-0 md:ml-8">
+          <div class={`py-3 px-4 rounded-lg ${statusData.lightBg} bg-opacity-20 backdrop-blur-sm border ${statusData.borderColor} border-opacity-30 text-white`}>
+            <div class="font-semibold mb-1">Status Timeline</div>
+            <div class="flex items-center gap-2 text-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              Proposed: {entry.data.dateProposed.toLocaleDateString('en-US', {year: 'numeric', month: 'short', day: 'numeric'})}
+            </div>
+            {entry.data.datePassed && (
+              <div class="flex items-center gap-2 text-sm mt-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Passed: {entry.data.datePassed.toLocaleDateString('en-US', {year: 'numeric', month: 'short', day: 'numeric'})}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
+    
+    <!-- Interactive timeline indicator -->
+    <div class="absolute bottom-0 left-0 w-full h-1 bg-black bg-opacity-30">
+      <div class={entry.data.status === 'passed' ? 'bg-green-400' : entry.data.status === 'in-progress' ? 'bg-yellow-400' : entry.data.status === 'proposed' ? 'bg-blue-400' : 'bg-red-400'} style="width: 65%; height: 100%;"></div>
+    </div>
   </div>
   
-  <main class="container mx-auto px-4 py-8">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-      <div class="md:col-span-3">
-        <!-- Content Card -->
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8">
-          <div class="prose max-w-none">
-            <Content />
-          </div>
-        </div>
-        
-        <!-- Sources -->
-        {entry.data.sources && entry.data.sources.length > 0 && (
-          <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8">
-            <h2 class="text-2xl font-bold mb-4 flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-              </svg>
-              Sources
-            </h2>
-            <ul class="space-y-3 divide-y divide-gray-100">
-              {entry.data.sources.map((source) => (
-                <li class="pt-3 first:pt-0">
-                  <a href={source.url} target="_blank" rel="noopener noreferrer" class="flex items-center text-blue-600 hover:underline">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                    </svg>
-                    {source.title}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </div>
-      
-      <!-- Sidebar -->
-      <div class="md:col-span-1">
-        <!-- Initiative Details -->
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5 mb-6">
-          <h2 class="text-xl font-bold mb-4 border-b pb-2">Initiative Details</h2>
-          <dl class="space-y-3">
-            <div>
-              <dt class="font-medium text-gray-600">Status</dt>
-              <dd class="mt-1"><StatusBadge status={entry.data.status} /></dd>
-            </div>
-            
-            <div>
-              <dt class="font-medium text-gray-600">Category</dt>
-              <dd class="mt-1">
-                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium bg-gray-100 text-gray-800">
-                  {entry.data.category}
-                </span>
-              </dd>
-            </div>
-            
-            <div>
-              <dt class="font-medium text-gray-600">Date Proposed</dt>
-              <dd class="mt-1">{entry.data.dateProposed.toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'})}</dd>
-            </div>
-            
-            {entry.data.datePassed && (
-              <div>
-                <dt class="font-medium text-gray-600">Date Passed</dt>
-                <dd class="mt-1">{entry.data.datePassed.toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'})}</dd>
+  <!-- Main content area -->
+  <main class="bg-gray-50 py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <!-- Left column - Main content -->
+        <div class="lg:col-span-3">
+          <!-- Content Card with enhanced styling -->
+          <div class="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden mb-8">
+            <div class="p-6 md:p-8">
+              <div class="prose max-w-none">
+                <Content />
               </div>
-            )}
-          </dl>
-        </div>
-        
-        <!-- Related Pull Requests -->
-        {entry.data.pullRequests && entry.data.pullRequests.length > 0 && (
-          <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5 mb-6">
-            <h2 class="text-xl font-bold mb-4 border-b pb-2 flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
-              </svg>
-              Pull Requests
-            </h2>
-            <ul class="space-y-4">
-              {entry.data.pullRequests.map((pr) => (
-                <li class="border-b border-gray-100 pb-3 last:border-0">
-                  <a href={pr.url} target="_blank" rel="noopener noreferrer" class="font-semibold text-blue-600 hover:underline flex items-center">
-                    <svg class="w-5 h-5 mr-1 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path>
-                      <polygon points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon>
-                    </svg>
-                    #{pr.number}: {pr.title}
-                  </a>
-                  <div class="text-sm text-gray-600 mt-1 flex items-center">
-                    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                      <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
-                    </svg>
-                    {pr.author}
-                    <span class="mx-1">•</span>
-                    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                      <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
-                    </svg>
-                    {new Date(pr.mergedAt).toLocaleDateString()}
-                  </div>
-                  {pr.description && (
-                    <p class="text-sm mt-1 text-gray-700">{pr.description}</p>
-                  )}
-                </li>
-              ))}
-            </ul>
+            </div>
           </div>
-        )}
-        
-        <!-- Edit on GitHub -->
-        <div class="bg-indigo-50 rounded-xl p-4 border border-indigo-100">
-          <h3 class="font-medium text-indigo-800 mb-2">Contribute to this page</h3>
-          <p class="text-sm text-indigo-700 mb-3">
-            This information is community-maintained and may need updates.
-          </p>
-          <a 
-            href={`https://github.com/uhteddy/watch2025.org/edit/main/src/content/initiatives/${entry.slug}.md`} 
-            class="text-sm flex items-center font-medium text-indigo-600 hover:text-indigo-800 transition-colors"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="mr-1" viewBox="0 0 16 16">
-              <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
-            </svg>
-            Edit this page on GitHub
-          </a>
+          
+          <!-- Sources with modern styling -->
+          {entry.data.sources && entry.data.sources.length > 0 && (
+            <div class="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden mb-8">
+              <div class="p-6 md:p-8">
+                <h2 class="text-2xl font-bold mb-6 flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class={`h-6 w-6 mr-3 ${statusData.accentColor}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                  </svg>
+                  Sources & References
+                </h2>
+                <ul class="space-y-4 divide-y divide-gray-100">
+                  {entry.data.sources.map((source) => (
+                    <li class="pt-4 first:pt-0">
+                      <a href={source.url} target="_blank" rel="noopener noreferrer" class={`flex items-center ${statusData.accentColor} hover:underline group`}>
+                        <div class={`p-2 mr-3 rounded-lg ${statusData.lightBg}`}>
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                          </svg>
+                        </div>
+                        <div>
+                          <span class="font-medium">{source.title}</span>
+                          {source.description && (
+                            <p class="text-sm text-gray-600 mt-1">{source.description}</p>
+                          )}
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          )}
+          
+          <!-- Impact Assessment -->
+          <div class={`${statusData.lightBg} rounded-xl shadow-md border ${statusData.borderColor} border-opacity-30 overflow-hidden mb-8`}>
+            <div class="p-6 md:p-8">
+              <h2 class="text-2xl font-bold mb-4 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class={`h-6 w-6 mr-3 ${statusData.accentColor}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                </svg>
+                Potential Impact
+              </h2>
+              <div class="prose max-w-none">
+                <p>This initiative could significantly affect democratic processes and institutions, with both immediate and long-term implications for governance structures and civil liberties.</p>
+                {entry.data.impactAreas && (
+                  <div class="mt-4">
+                    <h3 class="text-lg font-semibold">Key areas affected:</h3>
+                    <ul class="mt-2">
+                      {entry.data.impactAreas.map(area => (
+                        <li>{area}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
+        
+        <!-- Right column - Sidebar -->
+        <div class="lg:col-span-1">
+          <!-- Initiative Details Card -->
+          <div class="bg-white rounded-xl shadow-md border border-gray-200 p-5 mb-6">
+            <h2 class="text-xl font-bold mb-4 border-b pb-2">Initiative Details</h2>
+            <dl class="space-y-4">
+              <div>
+                <dt class="font-medium text-gray-600">Current Status</dt>
+                <dd class="mt-1"><StatusBadge status={entry.data.status} /></dd>
+              </div>
+              
+              <div>
+                <dt class="font-medium text-gray-600">Category</dt>
+                <dd class="mt-1">
+                  <span class={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${statusData.lightBg} ${statusData.darkBg} bg-opacity-10`}>
+                    {entry.data.category}
+                  </span>
+                </dd>
+              </div>
+              
+              <div>
+                <dt class="font-medium text-gray-600">Date Proposed</dt>
+                <dd class="mt-1">{entry.data.dateProposed.toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'})}</dd>
+              </div>
+              
+              {entry.data.datePassed && (
+                <div>
+                  <dt class="font-medium text-gray-600">Date Passed</dt>
+                  <dd class="mt-1">{entry.data.datePassed.toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'})}</dd>
+                </div>
+              )}
+              
+              {entry.data.agency && (
+                <div>
+                  <dt class="font-medium text-gray-600">Implementing Agency</dt>
+                  <dd class="mt-1">{entry.data.agency}</dd>
+                </div>
+              )}
+            </dl>
+          </div>
+          
+          <!-- Related Pull Requests with improved styling -->
+          {entry.data.pullRequests && entry.data.pullRequests.length > 0 && (
+            <div class="bg-white rounded-xl shadow-md border border-gray-200 p-5 mb-6">
+              <h2 class="text-xl font-bold mb-4 border-b pb-2 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class={`h-5 w-5 mr-2 ${statusData.accentColor}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                </svg>
+                Pull Requests
+              </h2>
+              <ul class="space-y-4">
+                {entry.data.pullRequests.map((pr) => (
+                  <li class="border-b border-gray-100 pb-4 last:border-0 last:pb-0">
+                    <a href={pr.url} target="_blank" rel="noopener noreferrer" class={`font-semibold ${statusData.accentColor} hover:underline flex items-center`}>
+                      <svg class="w-5 h-5 mr-2 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path>
+                        <polygon points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon>
+                      </svg>
+                      #{pr.number}: {pr.title}
+                    </a>
+                    <div class="text-sm text-gray-600 mt-1 flex items-center">
+                      <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+                      </svg>
+                      {pr.author}
+                      <span class="mx-1">•</span>
+                      <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+                      </svg>
+                      {new Date(pr.mergedAt).toLocaleDateString()}
+                    </div>
+                    {pr.description && (
+                      <p class="text-sm mt-1 text-gray-700">{pr.description}</p>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          
+          <!-- Related Initiatives -->
+          <div class="bg-white rounded-xl shadow-md border border-gray-200 p-5 mb-6">
+            <h2 class="text-xl font-bold mb-4 border-b pb-2">Related Initiatives</h2>
+            <div class="text-sm text-gray-600 italic mb-3">
+              This feature is coming soon. We're working on a system to connect related initiatives.
+            </div>
+          </div>
+          
+          <!-- Contribute CTA -->
+          <div class={`${statusData.lightBg} rounded-xl p-5 border ${statusData.borderColor} relative overflow-hidden`}>
+            <div class="absolute top-0 right-0 w-24 h-24 -mr-6 -mt-6 opacity-10">
+              <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+              </svg>
+            </div>
+            
+            <div class="relative z-10">
+              <h3 class="font-medium text-gray-800 mb-2">Help improve this page</h3>
+              <p class="text-sm text-gray-700 mb-3">
+                This information is community-maintained and may need updates or corrections.
+              </p>
+              <div class="flex flex-col space-y-2">
+                <a 
+                  href={`https://github.com/uhteddy/watch2025.org/edit/main/src/content/initiatives/${entry.slug}.md`} 
+                  class="text-sm flex items-center font-medium text-gray-800 hover:text-gray-900 transition-colors py-2 px-3 rounded-lg bg-white bg-opacity-50 hover:bg-opacity-80"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="mr-2" viewBox="0 0 16 16">
+                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                  </svg>
+                  Edit this page
+                </a>
+                <a 
+                  href={`https://github.com/uhteddy/watch2025.org/issues/new?title=Issue with ${entry.data.title}&body=Page: ${Astro.url.href}`} 
+                  class="text-sm flex items-center font-medium text-gray-800 hover:text-gray-900 transition-colors py-2 px-3 rounded-lg bg-white bg-opacity-50 hover:bg-opacity-80"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="mr-2" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
+                  </svg>
+                  Report an issue
+                </a>
+              </div>
+            </div>
+          </div>
 
-        <!-- Share links -->
-        <div class="mt-6">
-          <h3 class="text-sm font-medium text-gray-600 mb-2">Share this initiative:</h3>
-          <div class="flex space-x-2">
-            <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(entry.data.title)}&url=${encodeURIComponent(Astro.url.href)}`} 
-               target="_blank" 
-               rel="noopener noreferrer" 
-               class="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723 9.99 9.99 0 01-3.127 1.195 4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-              </svg>
-            </a>
-            <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(Astro.url.href)}`} 
-               target="_blank" 
-               rel="noopener noreferrer" 
-               class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-              </svg>
-            </a>
-            <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(Astro.url.href)}`} 
-               target="_blank" 
-               rel="noopener noreferrer" 
-               class="bg-blue-800 hover:bg-blue-900 text-white p-2 rounded">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-              </svg>
-            </a>
+          <!-- Share links -->
+          <div class="mt-6">
+            <h3 class="text-sm font-medium text-gray-600 mb-3">Share this initiative:</h3>
+            <div class="flex space-x-2">
+              <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`Tracking ${entry.data.title} | Project 2025 Tracker`)}&url=${encodeURIComponent(Astro.url.href)}`} 
+                 target="_blank" 
+                 rel="noopener noreferrer" 
+                 class="bg-[#1DA1F2] hover:bg-[#1a94df] text-white p-2.5 rounded-lg transition-colors">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723 9.99 9.99 0 01-3.127 1.195 4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                </svg>
+              </a>
+              <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(Astro.url.href)}`} 
+                 target="_blank" 
+                 rel="noopener noreferrer" 
+                 class="bg-[#1877F2] hover:bg-[#166fe5] text-white p-2.5 rounded-lg transition-colors">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+              </a>
+              <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(Astro.url.href)}`} 
+                 target="_blank" 
+                 rel="noopener noreferrer" 
+                 class="bg-[#0A66C2] hover:bg-[#0958a8] text-white p-2.5 rounded-lg transition-colors">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+              </a>
+              <a href={`mailto:?subject=${encodeURIComponent(`Project 2025 Initiative: ${entry.data.title}`)}&body=${encodeURIComponent(`I thought you might be interested in this Project 2025 initiative: ${entry.data.title}\n\nRead more: ${Astro.url.href}`)}`} 
+                 class="bg-gray-600 hover:bg-gray-700 text-white p-2.5 rounded-lg transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
       </div>

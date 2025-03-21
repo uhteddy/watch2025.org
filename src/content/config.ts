@@ -12,6 +12,7 @@ const initiatives = defineCollection({
     sources: z.array(z.object({
       title: z.string(),
       url: z.string().url(),
+      description: z.string().optional(),
     })).optional(),
     pullRequests: z.array(z.object({
       number: z.number(),
@@ -20,6 +21,20 @@ const initiatives = defineCollection({
       author: z.string(),
       mergedAt: z.string(),
       description: z.string().optional(),
+    })).optional(),
+    // New fields
+    agency: z.string().optional(),
+    impactAreas: z.array(z.string()).optional(),
+    relatedInitiatives: z.array(z.string()).optional(),
+    progressPercentage: z.number().min(0).max(100).optional(),
+    tags: z.array(z.string()).optional(),
+    priority: z.enum(['low', 'medium', 'high', 'critical']).optional(),
+    leadSponsors: z.array(z.string()).optional(),
+    timeline: z.array(z.object({
+      date: z.date(),
+      event: z.string(),
+      description: z.string().optional(),
+      url: z.string().url().optional(),
     })).optional(),
   }),
 });

@@ -36,218 +36,371 @@ const counts = {
   proposed: proposedInitiatives.length,
   blocked: blockedInitiatives.length
 };
+
+// Calculate percentages
+const percentages = {
+  passed: Math.round((counts.passed / counts.total) * 100) || 0,
+  inProgress: Math.round((counts.inProgress / counts.total) * 100) || 0,
+  proposed: Math.round((counts.proposed / counts.total) * 100) || 0,
+  blocked: Math.round((counts.blocked / counts.total) * 100) || 0
+};
 ---
 
-<Layout title="Project 2025 Tracker">
-  <!-- Hero Section -->
-  <div class="bg-gradient-to-r from-blue-700 to-indigo-900 text-white">
-    <div class="container mx-auto px-4 py-16">
-      <h1 class="text-5xl font-bold mb-4">Project 2025 Tracker</h1>
-      <p class="text-xl max-w-3xl opacity-90">
-        Monitoring the implementation and status of Project 2025 initiatives. Stay informed with community-maintained data on policy changes and their progress.
-      </p>
-      
-      <div class="mt-8 flex flex-wrap gap-4">
-        <a href="https://github.com/uhteddy/watch2025.org" 
-           class="bg-white text-blue-800 px-6 py-3 rounded-lg font-medium hover:bg-blue-50 transition flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
-          </svg>
-          Contribute on GitHub
-        </a>
-        <a href="#initiatives" 
-           class="border border-white text-white px-6 py-3 rounded-lg font-medium hover:bg-white hover:bg-opacity-10 transition">
-          View Initiatives
-        </a>
+<Layout title="Project 2025 Tracker | Monitoring Far-Right Policy Implementation">
+  <!-- Hero Section with more dramatic styling -->
+  <div class="relative bg-black text-white overflow-hidden">
+    <!-- Background pattern -->
+    <div class="absolute inset-0 z-0 opacity-20">
+      <div class="absolute inset-0 bg-gradient-to-br from-blue-900 to-black"></div>
+      <div class="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-blue-600 to-transparent opacity-30"></div>
+      <div class="absolute top-24 left-0 w-full h-px bg-white opacity-10"></div>
+      <div class="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-red-900/40 to-transparent"></div>
+    </div>
+    
+    <div class="container mx-auto px-4 py-16 md:py-20 relative z-10">
+      <div class="md:flex items-start justify-between gap-8">
+        <!-- Left side: Main header content -->
+        <div class="max-w-3xl">
+          <div class="inline-block bg-red-600 text-white px-3 py-1 text-sm font-bold mb-6 rounded tracking-wider">
+            CRITICAL MONITORING
+          </div>
+          
+          <h1 class="text-4xl sm:text-5xl md:text-6xl font-black mb-6 leading-tight">
+            Project 2025 <span class="text-red-500">Tracker</span>
+          </h1>
+          
+          <p class="text-lg md:text-xl max-w-2xl text-gray-300 mb-8 leading-relaxed">
+            A democracy watchdog monitoring the implementation of Project 2025 - a radical blueprint to reshape American democracy. Stay informed with verified data on policy changes and their progress.
+          </p>
+          
+          <div class="mt-8 flex flex-wrap gap-4">
+            <a href="#initiatives" 
+               class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-medium transition duration-300 flex items-center gap-2 shadow-lg shadow-red-900/30">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+              View Initiatives
+            </a>
+            <a href="https://github.com/uhteddy/watch2025.org" 
+               class="bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-3 rounded-lg font-medium hover:bg-white/20 transition flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+              </svg>
+              Contribute
+            </a>
+          </div>
+        </div>
+        
+        <!-- Right side: Stats panel -->
+        <div class="mt-12 md:mt-0 md:ml-8 bg-black/50 backdrop-blur-sm rounded-xl p-4 border border-white/10 min-w-[280px] flex-shrink-0">
+          <div class="text-center mb-3">
+            <span class="text-sm text-gray-300 uppercase tracking-wider font-medium">Implementation Status</span>
+          </div>
+          
+          <!-- Stats grid -->
+          <div class="grid grid-cols-2 gap-3 mb-4">
+            <div class="flex flex-col items-center p-2 rounded-lg bg-black/40">
+              <div class="text-3xl font-bold text-white">{counts.total}</div>
+              <div class="text-xs text-gray-400 uppercase tracking-wider">Total</div>
+            </div>
+            <div class="flex flex-col items-center p-2 rounded-lg bg-green-900/30">
+              <div class="text-3xl font-bold text-green-400">{counts.passed}</div>
+              <div class="text-xs text-gray-400 uppercase tracking-wider">Passed</div>
+            </div>
+            <div class="flex flex-col items-center p-2 rounded-lg bg-yellow-900/30">
+              <div class="text-3xl font-bold text-yellow-400">{counts.inProgress}</div>
+              <div class="text-xs text-gray-400 uppercase tracking-wider">In Progress</div>
+            </div>
+            <div class="flex flex-col items-center p-2 rounded-lg bg-red-900/30">
+              <div class="text-3xl font-bold text-red-400">{counts.blocked}</div>
+              <div class="text-xs text-gray-400 uppercase tracking-wider">Blocked</div>
+            </div>
+          </div>
+          
+          <!-- Progress bar -->
+          <div class="mb-1">
+            <div class="flex justify-between text-xs text-gray-400 mb-1">
+              <span>Implementation Progress</span>
+              <span>{percentages.passed}%</span>
+            </div>
+            <div class="h-1.5 bg-gray-800 rounded-full overflow-hidden">
+              <div class="h-full bg-red-600" style={`width: ${percentages.passed}%`}></div>
+            </div>
+          </div>
+          
+          <!-- Status distribution -->
+          <div class="mb-1 mt-3">
+            <div class="flex justify-between text-xs text-gray-400 mb-1">
+              <span>Status Distribution</span>
+            </div>
+            <div class="h-1.5 flex rounded-full overflow-hidden">
+              <div class="bg-green-400" style={`width: ${percentages.passed}%`}></div>
+              <div class="bg-yellow-400" style={`width: ${percentages.inProgress}%`}></div>
+              <div class="bg-blue-400" style={`width: ${percentages.proposed}%`}></div>
+              <div class="bg-red-400" style={`width: ${percentages.blocked}%`}></div>
+            </div>
+          </div>
+          
+          <!-- Legend -->
+          <div class="mt-3 flex flex-wrap justify-center gap-x-3 gap-y-1 text-xs">
+            <div class="flex items-center">
+              <div class="w-2 h-2 rounded-full bg-green-400 mr-1"></div>
+              <span class="text-gray-300">Passed</span>
+            </div>
+            <div class="flex items-center">
+              <div class="w-2 h-2 rounded-full bg-yellow-400 mr-1"></div>
+              <span class="text-gray-300">In Progress</span>
+            </div>
+            <div class="flex items-center">
+              <div class="w-2 h-2 rounded-full bg-blue-400 mr-1"></div>
+              <span class="text-gray-300">Proposed</span>
+            </div>
+            <div class="flex items-center">
+              <div class="w-2 h-2 rounded-full bg-red-400 mr-1"></div>
+              <span class="text-gray-300">Blocked</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+    
+    <!-- Timeline indicator -->
+    <div class="absolute bottom-0 left-0 w-full h-1 bg-gray-800">
+      <div class="h-full bg-gradient-to-r from-blue-600 via-purple-600 to-red-600" style={`width: ${percentages.passed}%`}></div>
+    </div>
   </div>
-
-  <!-- Stats Section -->
-  <div class="bg-gray-50 py-10">
+  
+  <!-- About Section with more urgency -->
+  <div class="bg-white py-16">
     <div class="container mx-auto px-4">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-        <div class="bg-white p-5 rounded-lg shadow-sm">
-          <div class="text-3xl font-bold text-blue-700">{counts.total}</div>
-          <div class="text-gray-600">Total Initiatives</div>
-        </div>
-        <div class="bg-white p-5 rounded-lg shadow-sm">
-          <div class="text-3xl font-bold text-green-600">{counts.passed}</div>
-          <div class="text-gray-600">Passed</div>
-        </div>
-        <div class="bg-white p-5 rounded-lg shadow-sm">
-          <div class="text-3xl font-bold text-yellow-500">{counts.inProgress}</div>
-          <div class="text-gray-600">In Progress</div>
-        </div>
-        <div class="bg-white p-5 rounded-lg shadow-sm">
-          <div class="text-3xl font-bold text-red-600">{counts.blocked}</div>
-          <div class="text-gray-600">Blocked</div>
+      <div class="max-w-4xl mx-auto">
+        <div class="flex items-start mb-8">
+          <div class="bg-red-100 p-2 rounded-full mr-4 mt-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+          </div>
+          <div>
+            <h2 class="text-3xl font-bold mb-4">Why This Matters</h2>
+            <div class="prose max-w-none text-lg text-gray-700">
+              <p class="font-medium">Project 2025 represents a coordinated attempt to reshape American governance through hundreds of policy changes that would fundamentally alter federal institutions.</p>
+              <p>This non-partisan tracker monitors the implementation status of these initiatives, providing transparent, community-maintained data on each policy proposal, its current status, and potential impacts.</p>
+              <p>Choose a category below to focus on specific areas, or browse all initiatives to stay fully informed. Help improve this tracker by contributing data through our GitHub repository.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
   
-  <main id="initiatives" class="container mx-auto px-4 py-12">
-    <!-- About Section -->
-    <div class="mb-16 max-w-4xl mx-auto">
-      <h2 class="text-3xl font-bold mb-6 text-center">Tracking Project 2025</h2>
-      <div class="prose max-w-none text-lg text-gray-700">
-        <p>Project 2025 represents a significant effort to reshape federal policy. This tracker monitors the implementation status of these initiatives, providing transparent, community-maintained data on each policy proposal.</p>
-        <p>Choose a category below to focus on specific areas, or browse all initiatives to stay fully informed. Help improve this tracker by contributing data through our GitHub repository.</p>
+  <main id="initiatives" class="bg-gray-50 py-16">
+    <div class="container mx-auto px-4">
+      <!-- Category Filter - with improved styling -->
+      {categories.length > 1 && (
+        <div class="mb-12">
+          <h3 class="text-lg font-semibold mb-4">Filter by policy area:</h3>
+          <div class="flex flex-wrap gap-2">
+            <button class="px-5 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition shadow-sm">All</button>
+            {categories.map(category => (
+              <button class="px-5 py-2.5 bg-white text-gray-800 rounded-lg hover:bg-gray-100 border border-gray-200 transition shadow-sm">{category}</button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <!-- Passed Initiatives -->
+      {passedInitiatives.length > 0 && (
+        <section class="mb-20">
+          <div class="flex items-center mb-8">
+            <div class="bg-green-100 p-2 rounded-full mr-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <div>
+              <h2 class="text-3xl font-bold">Passed Initiatives</h2>
+              <p class="text-gray-600 mt-1">Policies that have been successfully implemented</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {passedInitiatives.map(initiative => (
+              <a href={`/initiatives/${initiative.slug}`} class="group">
+                <div class="border border-gray-200 bg-white rounded-xl p-6 hover:shadow-xl transition duration-300 h-full flex flex-col relative overflow-hidden">
+                  <div class="absolute top-0 right-0 w-24 h-24 -mr-12 -mt-12 bg-green-100 rounded-full"></div>
+                  <div class="relative">
+                    <StatusBadge status={initiative.data.status} />
+                    <h3 class="text-xl font-semibold mt-3 group-hover:text-green-700 transition-colors">{initiative.data.title}</h3>
+                    <p class="text-gray-600 mt-2 flex-grow">{initiative.data.description}</p>
+                  </div>
+                  <div class="flex justify-between items-center mt-6 pt-4 border-t border-gray-100">
+                    <div class="text-sm text-gray-500">
+                      Passed: <span class="font-medium">{initiative.data.datePassed?.toLocaleDateString()}</span>
+                    </div>
+                    <span class="text-green-600 text-sm font-medium flex items-center">
+                      View details
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <!-- In Progress Initiatives -->
+      {inProgressInitiatives.length > 0 && (
+        <section class="mb-20">
+          <div class="flex items-center mb-8">
+            <div class="bg-yellow-100 p-2 rounded-full mr-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div>
+              <h2 class="text-3xl font-bold">In Progress Initiatives</h2>
+              <p class="text-gray-600 mt-1">Policies currently moving through implementation</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {inProgressInitiatives.map(initiative => (
+              <a href={`/initiatives/${initiative.slug}`} class="group">
+                <div class="border border-gray-200 bg-white rounded-xl p-6 hover:shadow-xl transition duration-300 h-full flex flex-col relative overflow-hidden">
+                  <div class="absolute top-0 right-0 w-24 h-24 -mr-12 -mt-12 bg-yellow-50 rounded-full"></div>
+                  <div class="relative">
+                    <StatusBadge status={initiative.data.status} />
+                    <h3 class="text-xl font-semibold mt-3 group-hover:text-yellow-700 transition-colors">{initiative.data.title}</h3>
+                    <p class="text-gray-600 mt-2 flex-grow">{initiative.data.description}</p>
+                  </div>
+                  <div class="flex justify-between items-center mt-6 pt-4 border-t border-gray-100">
+                    <div class="text-sm text-gray-500">
+                      Proposed: <span class="font-medium">{initiative.data.dateProposed.toLocaleDateString()}</span>
+                    </div>
+                    <span class="text-yellow-600 text-sm font-medium flex items-center">
+                      View details
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <!-- Proposed Initiatives with alert styling -->
+      {proposedInitiatives.length > 0 && (
+        <section class="mb-20">
+          <div class="flex items-center mb-8">
+            <div class="bg-blue-100 p-2 rounded-full mr-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+              </svg>
+            </div>
+            <div>
+              <h2 class="text-3xl font-bold">Proposed Initiatives</h2>
+              <p class="text-gray-600 mt-1">Policies that have been proposed but not yet implemented</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {proposedInitiatives.map(initiative => (
+              <a href={`/initiatives/${initiative.slug}`} class="group">
+                <div class="border border-gray-200 bg-white rounded-xl p-6 hover:shadow-xl transition duration-300 h-full flex flex-col relative overflow-hidden">
+                  <div class="absolute top-0 right-0 w-24 h-24 -mr-12 -mt-12 bg-blue-50 rounded-full"></div>
+                  <div class="relative">
+                    <StatusBadge status={initiative.data.status} />
+                    <h3 class="text-xl font-semibold mt-3 group-hover:text-blue-700 transition-colors">{initiative.data.title}</h3>
+                    <p class="text-gray-600 mt-2 flex-grow">{initiative.data.description}</p>
+                  </div>
+                  <div class="flex justify-between items-center mt-6 pt-4 border-t border-gray-100">
+                    <div class="text-sm text-gray-500">
+                      Proposed: <span class="font-medium">{initiative.data.dateProposed.toLocaleDateString()}</span>
+                    </div>
+                    <span class="text-blue-600 text-sm font-medium flex items-center">
+                      View details
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <!-- Blocked Initiatives with more alert styling -->
+      {blockedInitiatives.length > 0 && (
+        <section class="mb-20">
+          <div class="flex items-center mb-8">
+            <div class="bg-red-100 p-2 rounded-full mr-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+            </div>
+            <div>
+              <h2 class="text-3xl font-bold">Blocked Initiatives</h2>
+              <p class="text-gray-600 mt-1">Policies that have been blocked through legal or legislative means</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {blockedInitiatives.map(initiative => (
+              <a href={`/initiatives/${initiative.slug}`} class="group">
+                <div class="border border-gray-200 bg-white rounded-xl p-6 hover:shadow-xl transition duration-300 h-full flex flex-col relative overflow-hidden">
+                  <div class="absolute top-0 right-0 w-24 h-24 -mr-12 -mt-12 bg-red-50 rounded-full"></div>
+                  <div class="relative">
+                    <StatusBadge status={initiative.data.status} />
+                    <h3 class="text-xl font-semibold mt-3 group-hover:text-red-700 transition-colors">{initiative.data.title}</h3>
+                    <p class="text-gray-600 mt-2 flex-grow">{initiative.data.description}</p>
+                  </div>
+                  <div class="flex justify-between items-center mt-6 pt-4 border-t border-gray-100">
+                    <div class="text-sm text-gray-500">
+                      Blocked: <span class="font-medium">{initiative.data.dateProposed.toLocaleDateString()}</span>
+                    </div>
+                    <span class="text-red-600 text-sm font-medium flex items-center">
+                      View details
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <!-- Call to Action with more urgency -->
+      <div class="bg-gradient-to-r from-blue-900 to-indigo-900 rounded-2xl p-10 text-center shadow-xl relative overflow-hidden">
+        <!-- Decorative elements -->
+        <div class="absolute top-0 left-0 w-full h-full">
+          <div class="absolute top-0 left-0 w-64 h-64 bg-blue-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 -translate-x-1/2 -translate-y-1/2"></div>
+          <div class="absolute bottom-0 right-0 w-64 h-64 bg-indigo-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 translate-x-1/2 translate-y-1/2"></div>
+        </div>
+        
+        <div class="relative z-10">
+          <h2 class="text-3xl sm:text-4xl font-bold mb-4 text-white">Democracy Needs Your Help</h2>
+          <p class="text-blue-100 text-lg mb-8 max-w-2xl mx-auto">
+            This tracker is community-maintained. Help strengthen our democracy by contributing 
+            information about initiatives, updates, or corrections.
+          </p>
+          <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <a href="https://github.com/uhteddy/watch2025.org" 
+               class="inline-flex items-center justify-center px-6 py-3 bg-white text-blue-900 rounded-lg font-medium hover:bg-blue-50 transition shadow-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16" class="mr-2">
+                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+              </svg>
+              Contribute on GitHub
+            </a>
+          </div>
+        </div>
       </div>
-    </div>
-    
-    <!-- Category Filter - Optional component -->
-    {categories.length > 1 && (
-      <div class="mb-12">
-        <h3 class="text-lg font-medium mb-3">Filter by category:</h3>
-        <div class="flex flex-wrap gap-2">
-          <button class="px-4 py-2 bg-blue-100 text-blue-800 rounded-full hover:bg-blue-200 transition">All</button>
-          {categories.map(category => (
-            <button class="px-4 py-2 bg-gray-100 text-gray-800 rounded-full hover:bg-gray-200 transition">{category}</button>
-          ))}
-        </div>
-      </div>
-    )}
-
-    <!-- Passed Initiatives -->
-    {passedInitiatives.length > 0 && (
-      <section class="mb-16">
-        <div class="flex items-center mb-6">
-          <div class="bg-green-100 p-2 rounded-full mr-3">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-            </svg>
-          </div>
-          <h2 class="text-3xl font-bold">Passed Initiatives</h2>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {passedInitiatives.map(initiative => (
-            <a href={`/initiatives/${initiative.slug}`} class="group">
-              <div class="border border-gray-200 bg-white rounded-xl p-5 hover:shadow-lg transition duration-300 h-full flex flex-col">
-                <StatusBadge status={initiative.data.status} />
-                <h3 class="text-xl font-semibold mt-3 group-hover:text-blue-700 transition-colors">{initiative.data.title}</h3>
-                <p class="text-gray-600 mt-2 flex-grow">{initiative.data.description}</p>
-                <div class="flex justify-between items-center mt-4 pt-3 border-t border-gray-100">
-                  <div class="text-sm text-gray-500">
-                    Passed: <span class="font-medium">{initiative.data.datePassed?.toLocaleDateString()}</span>
-                  </div>
-                  <span class="text-blue-600 text-sm font-medium group-hover:underline">Read more &rarr;</span>
-                </div>
-              </div>
-            </a>
-          ))}
-        </div>
-      </section>
-    )}
-
-    <!-- In Progress Initiatives -->
-    {inProgressInitiatives.length > 0 && (
-      <section class="mb-16">
-        <div class="flex items-center mb-6">
-          <div class="bg-yellow-100 p-2 rounded-full mr-3">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </div>
-          <h2 class="text-3xl font-bold">In Progress Initiatives</h2>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {inProgressInitiatives.map(initiative => (
-            <a href={`/initiatives/${initiative.slug}`} class="group">
-              <div class="border border-gray-200 bg-white rounded-xl p-5 hover:shadow-lg transition duration-300 h-full flex flex-col">
-                <StatusBadge status={initiative.data.status} />
-                <h3 class="text-xl font-semibold mt-3 group-hover:text-blue-700 transition-colors">{initiative.data.title}</h3>
-                <p class="text-gray-600 mt-2 flex-grow">{initiative.data.description}</p>
-                <div class="flex justify-between items-center mt-4 pt-3 border-t border-gray-100">
-                  <div class="text-sm text-gray-500">
-                    Proposed: <span class="font-medium">{initiative.data.dateProposed.toLocaleDateString()}</span>
-                  </div>
-                  <span class="text-blue-600 text-sm font-medium group-hover:underline">Read more &rarr;</span>
-                </div>
-              </div>
-            </a>
-          ))}
-        </div>
-      </section>
-    )}
-
-    <!-- Proposed Initiatives -->
-    {proposedInitiatives.length > 0 && (
-      <section class="mb-16">
-        <div class="flex items-center mb-6">
-          <div class="bg-blue-100 p-2 rounded-full mr-3">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-            </svg>
-          </div>
-          <h2 class="text-3xl font-bold">Proposed Initiatives</h2>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {proposedInitiatives.map(initiative => (
-            <a href={`/initiatives/${initiative.slug}`} class="group">
-              <div class="border border-gray-200 bg-white rounded-xl p-5 hover:shadow-lg transition duration-300 h-full flex flex-col">
-                <StatusBadge status={initiative.data.status} />
-                <h3 class="text-xl font-semibold mt-3 group-hover:text-blue-700 transition-colors">{initiative.data.title}</h3>
-                <p class="text-gray-600 mt-2 flex-grow">{initiative.data.description}</p>
-                <div class="flex justify-between items-center mt-4 pt-3 border-t border-gray-100">
-                  <div class="text-sm text-gray-500">
-                    Proposed: <span class="font-medium">{initiative.data.dateProposed.toLocaleDateString()}</span>
-                  </div>
-                  <span class="text-blue-600 text-sm font-medium group-hover:underline">Read more &rarr;</span>
-                </div>
-              </div>
-            </a>
-          ))}
-        </div>
-      </section>
-    )}
-
-    <!-- Blocked Initiatives -->
-    {blockedInitiatives.length > 0 && (
-      <section class="mb-16">
-        <div class="flex items-center mb-6">
-          <div class="bg-red-100 p-2 rounded-full mr-3">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-            </svg>
-          </div>
-          <h2 class="text-3xl font-bold">Blocked Initiatives</h2>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {blockedInitiatives.map(initiative => (
-            <a href={`/initiatives/${initiative.slug}`} class="group">
-              <div class="border border-gray-200 bg-white rounded-xl p-5 hover:shadow-lg transition duration-300 h-full flex flex-col">
-                <StatusBadge status={initiative.data.status} />
-                <h3 class="text-xl font-semibold mt-3 group-hover:text-blue-700 transition-colors">{initiative.data.title}</h3>
-                <p class="text-gray-600 mt-2 flex-grow">{initiative.data.description}</p>
-                <div class="flex justify-between items-center mt-4 pt-3 border-t border-gray-100">
-                  <div class="text-sm text-gray-500">
-                    Proposed: <span class="font-medium">{initiative.data.dateProposed.toLocaleDateString()}</span>
-                  </div>
-                  <span class="text-blue-600 text-sm font-medium group-hover:underline">Read more &rarr;</span>
-                </div>
-              </div>
-            </a>
-          ))}
-        </div>
-      </section>
-    )}
-
-    <!-- Call to Action -->
-    <div class="bg-indigo-50 rounded-2xl p-8 text-center">
-      <h2 class="text-3xl font-bold mb-4">Help Track Project 2025</h2>
-      <p class="text-gray-700 text-lg mb-6 max-w-3xl mx-auto">
-        This tracker is community-maintained. Help improve our data by contributing information about initiatives, 
-        updates, or corrections through GitHub.
-      </p>
-      <a href="https://github.com/uhteddy/watch2025.org" 
-         class="inline-flex items-center px-6 py-3 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition">
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16" class="mr-2">
-          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
-        </svg>
-        Contribute on GitHub
-      </a>
     </div>
   </main>
 </Layout>
