@@ -1,8 +1,13 @@
-const fs = require('fs');
-const path = require('path');
-const yaml = require('js-yaml');
+import fs from 'fs';
+import path from 'path';
+import { load, dump } from 'js-yaml';
 
-const [filePath, prNumber, prTitle, author, mergedAt] = process.argv.slice(2);
+// Get command line arguments
+const filePath = process.argv[2];
+const prNumber = process.argv[3];
+const prTitle = process.argv[4];
+const author = process.argv[5];
+const mergedAt = process.argv[6];
 
 // Read the file
 const content = fs.readFileSync(filePath, 'utf8');
@@ -15,7 +20,7 @@ if (parts.length < 3) {
 }
 
 // Parse the frontmatter
-const frontmatter = yaml.load(parts[1]);
+const frontmatter = load(parts[1]);
 
 // Initialize pullRequests array if it doesn't exist
 if (!frontmatter.pullRequests) {
@@ -26,13 +31,13 @@ if (!frontmatter.pullRequests) {
 frontmatter.pullRequests.push({
   number: parseInt(prNumber),
   title: prTitle,
-  url: `https://github.com/uhteddy/project2025-tracker/pull/${prNumber}`,
+  url: `https://github.com/uhteddy/watch2025.org/pull/${prNumber}`,
   author,
   mergedAt,
 });
 
 // Convert back to YAML
-const newFrontmatter = yaml.dump(frontmatter);
+const newFrontmatter = dump(frontmatter);
 const newContent = `---\n${newFrontmatter}---\n${parts[2]}`;
 
 // Write back to the file
