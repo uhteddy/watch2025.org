@@ -2,7 +2,6 @@
 import "../styles/global.css";
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
-import StatusBadge from '../components/StatusBadge.astro';
 
 // Get all initiatives, sorted by most recently passed
 const initiatives = await getCollection('initiatives');
@@ -228,7 +227,6 @@ const percentages = {
                 <div class="border border-gray-200 bg-white rounded-xl p-6 hover:shadow-xl transition duration-300 h-full flex flex-col relative overflow-hidden">
                   <div class="absolute top-0 right-0 w-24 h-24 -mr-12 -mt-12 bg-green-100 rounded-full"></div>
                   <div class="relative">
-                    <StatusBadge status={initiative.data.status} />
                     <h3 class="text-xl font-semibold mt-3 group-hover:text-green-700 transition-colors">{initiative.data.title}</h3>
                     <p class="text-gray-600 mt-2 flex-grow">{initiative.data.description}</p>
                   </div>
@@ -270,7 +268,6 @@ const percentages = {
                 <div class="border border-gray-200 bg-white rounded-xl p-6 hover:shadow-xl transition duration-300 h-full flex flex-col relative overflow-hidden">
                   <div class="absolute top-0 right-0 w-24 h-24 -mr-12 -mt-12 bg-yellow-50 rounded-full"></div>
                   <div class="relative">
-                    <StatusBadge status={initiative.data.status} />
                     <h3 class="text-xl font-semibold mt-3 group-hover:text-yellow-700 transition-colors">{initiative.data.title}</h3>
                     <p class="text-gray-600 mt-2 flex-grow">{initiative.data.description}</p>
                   </div>
@@ -312,7 +309,6 @@ const percentages = {
                 <div class="border border-gray-200 bg-white rounded-xl p-6 hover:shadow-xl transition duration-300 h-full flex flex-col relative overflow-hidden">
                   <div class="absolute top-0 right-0 w-24 h-24 -mr-12 -mt-12 bg-blue-50 rounded-full"></div>
                   <div class="relative">
-                    <StatusBadge status={initiative.data.status} />
                     <h3 class="text-xl font-semibold mt-3 group-hover:text-blue-700 transition-colors">{initiative.data.title}</h3>
                     <p class="text-gray-600 mt-2 flex-grow">{initiative.data.description}</p>
                   </div>
@@ -354,7 +350,6 @@ const percentages = {
                 <div class="border border-gray-200 bg-white rounded-xl p-6 hover:shadow-xl transition duration-300 h-full flex flex-col relative overflow-hidden">
                   <div class="absolute top-0 right-0 w-24 h-24 -mr-12 -mt-12 bg-red-50 rounded-full"></div>
                   <div class="relative">
-                    <StatusBadge status={initiative.data.status} />
                     <h3 class="text-xl font-semibold mt-3 group-hover:text-red-700 transition-colors">{initiative.data.title}</h3>
                     <p class="text-gray-600 mt-2 flex-grow">{initiative.data.description}</p>
                   </div>

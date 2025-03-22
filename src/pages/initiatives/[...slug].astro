@@ -3,6 +3,8 @@ import "../../styles/global.css";
 import { getCollection, type CollectionEntry } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import StatusBadge from '../../components/StatusBadge.astro';
+import ExpandablePullRequests from '../../components/ExpandablePullRequests.svelte';
+import InitiativeTimeline from '../../components/InitiativeTimeline.svelte';
 
 interface Props {
   entry: CollectionEntry<'initiatives'>;
@@ -162,6 +164,15 @@ const statusData = statusConfig[entry.data.status];
             </div>
           </div>
           
+          <!-- Timeline section - moved to main content -->
+          {entry.data.timeline && entry.data.timeline.length > 0 && (
+            <InitiativeTimeline 
+              timeline={entry.data.timeline} 
+              statusData={statusData} 
+              client:visible
+            />
+          )}
+          
           <!-- Sources with modern styling -->
           {entry.data.sources && entry.data.sources.length > 0 && (
             <div class="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden mb-8">
@@ -208,7 +219,6 @@ const statusData = statusConfig[entry.data.status];
                 Potential Impact
               </h2>
               <div class="prose max-w-none">
-                <p>This initiative could significantly affect democratic processes and institutions, with both immediate and long-term implications for governance structures and civil liberties.</p>
                 {entry.data.impactAreas && (
                   <div class="mt-4">
                     <h3 class="text-lg font-semibold">Key areas affected:</h3>
@@ -272,45 +282,15 @@ const statusData = statusConfig[entry.data.status];
                 <svg xmlns="http://www.w3.org/2000/svg" class={`h-5 w-5 mr-2 ${statusData.accentColor}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
                 </svg>
-                Pull Requests
+                Edit History
               </h2>
-              <ul class="space-y-4">
-                {entry.data.pullRequests.map((pr) => (
-                  <li class="border-b border-gray-100 pb-4 last:border-0 last:pb-0">
-                    <a href={pr.url} target="_blank" rel="noopener noreferrer" class={`font-semibold ${statusData.accentColor} hover:underline flex items-center`}>
-                      <svg class="w-5 h-5 mr-2 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path>
-                        <polygon points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon>
-                      </svg>
-                      #{pr.number}: {pr.title}
-                    </a>
-                    <div class="text-sm text-gray-600 mt-1 flex items-center">
-                      <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
-                      </svg>
-                      {pr.author}
-                      <span class="mx-1">•</span>
-                      <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
-                      </svg>
-                      {new Date(pr.mergedAt).toLocaleDateString()}
-                    </div>
-                    {pr.description && (
-                      <p class="text-sm mt-1 text-gray-700">{pr.description}</p>
-                    )}
-                  </li>
-                ))}
-              </ul>
+              <ExpandablePullRequests 
+                pullRequests={entry.data.pullRequests} 
+                statusAccentColor={statusData.accentColor} 
+                client:visible 
+              />
             </div>
           )}
-          
-          <!-- Related Initiatives -->
-          <div class="bg-white rounded-xl shadow-md border border-gray-200 p-5 mb-6">
-            <h2 class="text-xl font-bold mb-4 border-b pb-2">Related Initiatives</h2>
-            <div class="text-sm text-gray-600 italic mb-3">
-              This feature is coming soon. We're working on a system to connect related initiatives.
-            </div>
-          </div>
           
           <!-- Contribute CTA -->
           <div class={`${statusData.lightBg} rounded-xl p-5 border ${statusData.borderColor} relative overflow-hidden`}>

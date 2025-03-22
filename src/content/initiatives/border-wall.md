@@ -1,58 +1,48 @@
 ---
-title: Border Wall and Border Security
-description: >-
-  Project 2025 calls for securing the border and completing the construction of
-  a wall along the U.S.-Mexico border.
+title: "Border Wall and Border Security"
+description: "Project 2025 calls for securing the border and completing the construction of a wall along the U.S.-Mexico border."
 status: in-progress
-category: Immigration
+category: "Immigration"
 dateProposed: 2025-01-20T12:00:00.000Z
-agency: Department of Homeland Security
+agency: "Department of Homeland Security"
 impactAreas:
-  - Border security
-  - Immigration enforcement
-  - Citizenship
+  - "Border security"
+  - "Immigration enforcement"
+  - "Citizenship"
 relatedInitiatives:
-  - mass-deportations
-  - expanding-e-verify
+  - "mass-deportations"
+  - "expanding-e-verify"
 progressPercentage: 60
 tags:
-  - border security
-  - immigration
-  - national security
-priority: high
+  - "border security"
+  - "immigration"
+  - "national security"
+priority: "high"
 leadSponsors:
-  - The Heritage Foundation
-  - Project 2025 Coalition
+  - "The Heritage Foundation"
+  - "Project 2025 Coalition"
 timeline:
-  - date: 2025-01-20T00:00:00.000Z
-    event: President declares national emergency at the southern border.
-  - date: 2025-02-10T00:00:00.000Z
-    event: >-
-      Deployment of military personnel and Border Patrol to support border
-      security.
-  - date: 2025-03-05T00:00:00.000Z
-    event: >-
-      Funding allocated for additional physical barriers along the southern
-      border.
+  - date: 2025-01-20
+    title: "National Emergency"
+    description: "President Trump declares national emergency at the southern border."
+  - date: 2025-02-10
+    title: "Military Deployment"
+    description: "Deployment of military personnel and Border Patrol to support border security."
+  - date: 2025-03-05
+    title: "Funding allocated"
+    description: "Funding allocated for additional physical barriers along the southern border."
 sources:
-  - title: Project 2025 Policy Agenda
-    url: https://www.project2025.org/policy/
-    description: Official documentation on Project 2025 initiatives.
-  - title: Trump declares national emergency at the border
-    url: >-
-      https://www.whitehouse.gov/presidential-actions/2025/01/declaring-a-national-emergency-at-the-southern-border-of-the-united-states/
-    description: White House statement on the emergency declaration.
-  - title: Pentagon Deploys Stryker Brigade, Aviation Battalion to Southern Border
-    url: >-
-      https://www.defense.gov/News/News-Stories/Article/Article/4086787/pentagon-deploys-stryker-brigade-aviation-battalion-to-southern-border/
-    description: Defense Department report on military deployment.
-pullRequests:
-  - number: 3
-    title: Add tag for citizenship
-    url: https://github.com/uhteddy/watch2025.org/pull/3
-    author: uhteddy
-    mergedAt: '2025-03-21T23:52:19Z'
+  - title: "Project 2025 Policy Agenda"
+    url: "https://www.project2025.org/policy/"
+    description: "Official documentation on Project 2025 initiatives."
+  - title: "Trump declares national emergency at the border"
+    url: "https://www.whitehouse.gov/presidential-actions/2025/01/declaring-a-national-emergency-at-the-southern-border-of-the-united-states/"
+    description: "White House statement on the emergency declaration."
+  - title: "Pentagon Deploys Stryker Brigade, Aviation Battalion to Southern Border"
+    url: "https://www.defense.gov/News/News-Stories/Article/Article/4086787/pentagon-deploys-stryker-brigade-aviation-battalion-to-southern-border/"
+    description: "Defense Department report on military deployment."
 ---
+
 ## Overview
 Project 2025 includes a strong emphasis on **border security**, with a specific focus on completing the U.S.-Mexico border wall. This initiative aligns with past policy proposals and executive actions that emphasize a **tough stance on immigration** and **enhanced enforcement measures**.
 
