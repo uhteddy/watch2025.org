@@ -22,11 +22,14 @@ leadSponsors:
   - "Project 2025 Coalition"
 timeline:
   - date: 2025-02-01
-    event: "Executive order signed to expand deportation operations."
+    title: "Executive Order"
+    description: "Executive order signed to expand deportation operations."
   - date: 2025-02-20
-    event: "ICE increases nationwide raids targeting undocumented individuals."
+    title: "ICE"
+    description: "ICE increases nationwide raids targeting undocumented individuals."
   - date: 2025-03-10
-    event: "DHS implements expedited removal process for non-citizens."
+    title: "DHS"
+    description: "DHS implements expedited removal process for non-citizens."
 sources:
   - title: "Project 2025 Policy Agenda"
     url: "https://www.project2025.org/policy/"
