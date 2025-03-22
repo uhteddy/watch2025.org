@@ -1,6 +1,6 @@
 # Watch2025.org
 
-[![Validate Markdown Files](https://github.com/uhteddy/watch2025.org/actions/workflows/astrocheck.yml/badge.svg)](https://github.com/uhteddy/watch2025.org/actions/workflows/astrocheck.yml)
+[![Validate Markdown Files](https://github.com/uhteddy/watch2025.org/actions/workflows/checkastro.yml/badge.svg)](https://github.com/uhteddy/watch2025.org/actions/workflows/checkastro.yml)
 
 Watch2025.org is an open-source, community-maintained tracker for monitoring the implementation of Project 2025, a policy blueprint for reshaping American governance. This platform provides transparent, factual information on policy proposals, implementation status, and potential impacts.
 
