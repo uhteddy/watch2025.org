@@ -1,5 +1,4 @@
 import fs from 'fs';
-import path from 'path';
 import { load, dump } from 'js-yaml';
 
 // Get command line arguments
