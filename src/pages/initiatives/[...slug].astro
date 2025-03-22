@@ -5,6 +5,7 @@ import Layout from '../../layouts/Layout.astro';
 import StatusBadge from '../../components/StatusBadge.astro';
 import ExpandablePullRequests from '../../components/ExpandablePullRequests.svelte';
 import InitiativeTimeline from '../../components/InitiativeTimeline.svelte';
+import { SEO } from 'astro-seo';
 
 interface Props {
   entry: CollectionEntry<'initiatives'>;
@@ -91,17 +92,57 @@ const statusData = statusConfig[entry.data.status];
 // SEO data for the page
 const pageTitle = `${entry.data.title} | Project 2025 Tracker`;
 const pageDescription = entry.data.description;
-const ogImage = `/og/${entry.slug}.png`; // This will be dynamically generated
+const ogImage = `/og/${entry.slug}.png`; // Dynamically generated OG image
+const siteUrl = import.meta.env.SITE || 'https://watch2025.org';
+const ogImageUrl = new URL(ogImage, siteUrl).toString();
 ---
 
-<Layout 
-  title={pageTitle}
-  description={pageDescription}
-  image={ogImage}
-  imageAlt={`Status: ${entry.data.status} - ${entry.data.title}`}
-  ogType="article"
-  slug={`initiatives/${entry.slug}`}
->
+<Layout>
+  <SEO
+    slot="head"
+    title={pageTitle}
+    description={pageDescription}
+    openGraph={{
+      basic: {
+        title: pageTitle,
+        type: "article",
+        image: ogImageUrl,
+      },
+      optional: {
+        description: pageDescription,
+        siteName: "Project 2025 Tracker",
+      },
+      image: {
+        alt: `Status: ${entry.data.status} - ${entry.data.title}`,
+        width: 1200,
+        height: 630,
+      },
+      article: {
+        publishedTime: entry.data.dateProposed.toISOString(),
+        modifiedTime: new Date().toISOString(),
+        section: entry.data.category || "Project 2025",
+        tags: [entry.data.status, entry.data.category].filter(Boolean),
+      }
+    }}
+    twitter={{
+      card: "summary_large_image",
+      site: "@watch2025org",
+      title: pageTitle,
+      description: pageDescription,
+      image: ogImageUrl,
+      imageAlt: `Status: ${entry.data.status} - ${entry.data.title}`
+    }}
+    extend={{
+      link: [
+        { rel: "canonical", href: new URL(`initiatives/${entry.slug}`, siteUrl).toString() }
+      ],
+      meta: [
+        { name: "twitter:creator", content: "@watch2025org" },
+        { property: "og:url", content: new URL(`initiatives/${entry.slug}`, siteUrl).toString() }
+      ],
+    }}
+  />
+
   <!-- Hero Section with dramatic styling based on status -->
   <div class={`${statusData.bgColor} relative overflow-hidden`}>
     <!-- Background pattern -->
