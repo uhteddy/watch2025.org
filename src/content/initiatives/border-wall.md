@@ -1,7 +1,7 @@
 ---
 title: "Border Wall and Border Security"
 description: "Project 2025 calls for securing the border and completing the construction of a wall along the U.S.-Mexico border."
-status: in-progress
+status: passed
 category: "Immigration"
 dateProposed: 2025-01-20T12:00:00.000Z
 agency: "Department of Homeland Security"
@@ -25,6 +25,7 @@ timeline:
   - date: 2025-01-20
     title: "National Emergency"
     description: "President Trump declares national emergency at the southern border."
+    url: "https://www.whitehouse.gov/presidential-actions/2025/01/declaring-a-national-emergency-at-the-southern-border-of-the-united-states/"
   - date: 2025-02-10
     title: "Military Deployment"
     description: "Deployment of military personnel and Border Patrol to support border security."
