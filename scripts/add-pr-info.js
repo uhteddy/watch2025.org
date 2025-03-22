@@ -1,5 +1,6 @@
-const fs = require('fs');
-const yaml = require('js-yaml');
+import fs from 'fs';
+import path from 'path';
+import { load, dump } from 'js-yaml';
 
 // Get command line arguments
 const filePath = process.argv[2];
