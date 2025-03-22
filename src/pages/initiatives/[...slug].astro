@@ -112,7 +112,7 @@ const statusData = statusConfig[entry.data.status];
         <div class="flex-grow">
           <div class="flex items-center gap-4 mb-6">
             <div class="w-14 h-14 rounded-full flex items-center justify-center bg-black bg-opacity-30 backdrop-blur-sm shadow-lg" set:html={statusData.icon}></div>
-            <StatusBadge status={entry.data.status} size="large" />
+            <StatusBadge status={entry.data.status} />
           </div>
           
           <h1 class={`text-4xl md:text-5xl font-bold mb-4 ${statusData.textColor}`}>{entry.data.title}</h1>
