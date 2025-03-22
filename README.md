@@ -104,6 +104,7 @@ npm run dev
 - [Tailwind CSS](https://tailwindcss.com) - Styling
 - [Svelte](https://svelte.dev) - Interactive components
 - [Cloudflare](https://cloudflare.com) - Hosting and deployment
+- [astro-pagefind](https://github.com/shishkin/astro-pagefind) - Adds static site searching
 
 ## License
 
