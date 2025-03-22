@@ -2,7 +2,6 @@
 import "../styles/global.css";
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
-import { SEO } from 'astro-seo';
 
 // Get all initiatives, sorted by most recently passed
 const initiatives = await getCollection('initiatives');
@@ -54,36 +53,6 @@ const ogImageUrl = new URL(ogImage, siteUrl).toString();
 ---
 
 <Layout title={pageTitle}>
-  <SEO
-    slot="head"
-    title={pageTitle}
-    description={pageDescription}
-    openGraph={{
-      basic: {
-        title: pageTitle,
-        type: "website",
-        image: ogImageUrl,
-      },
-      optional: {
-        description: pageDescription,
-        siteName: "Project 2025 Tracker",
-      },
-      image: {
-        alt: "Project 2025 Tracker",
-        width: 1200,
-        height: 630,
-      }
-    }}
-    twitter={{
-      card: "summary_large_image",
-      site: "@watch2025org",
-      title: pageTitle,
-      description: pageDescription,
-      image: ogImageUrl,
-      imageAlt: "Project 2025 Tracker"
-    }}
-  />
-
   <!-- Hero Section with more dramatic styling -->
   <div class="relative bg-black text-white overflow-hidden">
     <!-- Background pattern -->
