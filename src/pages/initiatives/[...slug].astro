@@ -87,9 +87,21 @@ const statusConfig = {
 };
 
 const statusData = statusConfig[entry.data.status];
+
+// SEO data for the page
+const pageTitle = `${entry.data.title} | Project 2025 Tracker`;
+const pageDescription = entry.data.description;
+const ogImage = `/og/${entry.slug}.png`; // This will be dynamically generated
 ---
 
-<Layout title={entry.data.title}>
+<Layout 
+  title={pageTitle}
+  description={pageDescription}
+  image={ogImage}
+  imageAlt={`Status: ${entry.data.status} - ${entry.data.title}`}
+  ogType="article"
+  slug={`initiatives/${entry.slug}`}
+>
   <!-- Hero Section with dramatic styling based on status -->
   <div class={`${statusData.bgColor} relative overflow-hidden`}>
     <!-- Background pattern -->

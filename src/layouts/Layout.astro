@@ -1,16 +1,61 @@
 ---
+import { SEO } from 'astro-seo';
 import Search from '../components/Search.svelte';
-const { title } = Astro.props;
+const { 
+  title, 
+  description, 
+  image, 
+  imageAlt, 
+  ogType = 'website',
+  slug = '' 
+} = Astro.props;
+
+const siteUrl = 'https://watch2025.org';
+const canonicalURL = new URL(slug, siteUrl).toString();
+const imageUrl = image ? new URL(image, siteUrl).toString() : `${siteUrl}/og/${slug || 'default'}.png`;
 ---
 
 <!doctype html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
+        <link rel="sitemap" href="/sitemap-index.xml" />
         <meta name="viewport" content="width=device-width" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="generator" content={Astro.generator} />
-        <title>{title}</title>
+        
+        <SEO
+            title={title}
+            description={description || "Track the implementation of Project 2025 initiatives with verified data on policy changes and their progress."}
+            canonical={canonicalURL}
+            openGraph={{
+                basic: {
+                    title: title,
+                    type: ogType,
+                    image: imageUrl,
+                    url: canonicalURL,
+                },
+                image: {
+                    alt: imageAlt || title,
+                },
+                optional: {
+                    siteName: "Project 2025 Tracker",
+                    description: description || "Track the implementation of Project 2025 initiatives with verified data on policy changes and their progress."
+                },
+            }}
+            twitter={{
+                card: "summary_large_image",
+                site: "@watch2025",
+                creator: "@watch2025"
+            }}
+            extend={{
+                meta: [
+                    { name: "twitter:image", content: imageUrl },
+                    { name: "twitter:title", content: title },
+                    { name: "twitter:description", content: description || "Track the implementation of Project 2025 initiatives with verified data on policy changes and their progress." },
+                ],
+            }}
+        />
     </head>
     <body>
         <header class="bg-black text-white shadow-lg relative z-20">
