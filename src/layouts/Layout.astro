@@ -1,25 +1,46 @@
 ---
+import Search from '../components/Search.svelte';
 const { title } = Astro.props;
 ---
+
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{title}</title>
+    </head>
+    <body>
+        <header class="bg-black text-white shadow-lg relative z-20">
+            <div class="bg-gradient-to-r from-red-900/20 to-transparent absolute inset-0"></div>
+            <div class="container mx-auto px-4 py-3 flex items-center justify-between relative">
+                <a href="/" class="text-xl md:text-2xl font-bold flex items-center group">
+                    <span class="bg-red-600 h-7 w-1.5 mr-2.5 group-hover:h-8 transition-all duration-300"></span>
+                    <span class="tracking-tight">Project 2025 <span class="text-red-600">Tracker</span></span>
+                </a>
+                
+                <div class="md:w-72 lg:w-80">
+                    <Search client:idle />
+                </div>
+            </div>
+            
+            <!-- Timeline indicator bar -->
+            <div class="h-1 bg-gray-900 w-full">
+                <div class="h-full bg-gradient-to-r from-red-700 to-red-500" style="width: 45%"></div>
+            </div>
+        </header>
+        <slot />
+    </body>
 </html>
 
 <style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+    html,
+    body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        font-family: system-ui, sans-serif;
+    }
 </style>
