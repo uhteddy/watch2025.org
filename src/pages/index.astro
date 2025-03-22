@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import { SEO } from 'astro-seo';
 
 // Get all initiatives, sorted by most recently passed
 const initiatives = await getCollection('initiatives');
@@ -43,9 +44,46 @@ const percentages = {
   proposed: Math.round((counts.proposed / counts.total) * 100) || 0,
   blocked: Math.round((counts.blocked / counts.total) * 100) || 0
 };
+
+// SEO data
+const pageTitle = "Project 2025 Tracker | Monitoring Far-Right Policy Implementation";
+const pageDescription = "A democracy watchdog monitoring the implementation of Project 2025 - a radical blueprint to reshape American democracy.";
+const ogImage = "/og/home.png"; // You can create a home.png OG image
+const siteUrl = import.meta.env.SITE || 'https://watch2025.org';
+const ogImageUrl = new URL(ogImage, siteUrl).toString();
 ---
 
-<Layout title="Project 2025 Tracker | Monitoring Far-Right Policy Implementation">
+<Layout title={pageTitle}>
+  <SEO
+    slot="head"
+    title={pageTitle}
+    description={pageDescription}
+    openGraph={{
+      basic: {
+        title: pageTitle,
+        type: "website",
+        image: ogImageUrl,
+      },
+      optional: {
+        description: pageDescription,
+        siteName: "Project 2025 Tracker",
+      },
+      image: {
+        alt: "Project 2025 Tracker",
+        width: 1200,
+        height: 630,
+      }
+    }}
+    twitter={{
+      card: "summary_large_image",
+      site: "@watch2025org",
+      title: pageTitle,
+      description: pageDescription,
+      image: ogImageUrl,
+      imageAlt: "Project 2025 Tracker"
+    }}
+  />
+
   <!-- Hero Section with more dramatic styling -->
   <div class="relative bg-black text-white overflow-hidden">
     <!-- Background pattern -->
@@ -194,182 +232,184 @@ const percentages = {
   
   <main id="initiatives" class="bg-gray-50 py-16">
     <div class="container mx-auto px-4">
-      <!-- Category Filter - with improved styling -->
+      <!-- Category Filter - with working functionality -->
       {categories.length > 1 && (
         <div class="mb-12">
           <h3 class="text-lg font-semibold mb-4">Filter by policy area:</h3>
-          <div class="flex flex-wrap gap-2">
-            <button class="px-5 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition shadow-sm">All</button>
+          <div class="flex flex-wrap gap-2" id="category-filters">
+            <button 
+              class="px-5 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition shadow-sm category-filter active" 
+              data-category="all"
+            >
+              All
+            </button>
             {categories.map(category => (
-              <button class="px-5 py-2.5 bg-white text-gray-800 rounded-lg hover:bg-gray-100 border border-gray-200 transition shadow-sm">{category}</button>
+              <button 
+                class="px-5 py-2.5 bg-white text-gray-800 rounded-lg hover:bg-gray-100 border border-gray-200 transition shadow-sm category-filter" 
+                data-category={category}
+              >
+                {category}
+              </button>
             ))}
           </div>
         </div>
       )}
 
       <!-- Passed Initiatives -->
-      {passedInitiatives.length > 0 && (
-        <section class="mb-20">
-          <div class="flex items-center mb-8">
-            <div class="bg-green-100 p-2 rounded-full mr-4">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
-            </div>
-            <div>
-              <h2 class="text-3xl font-bold">Passed Initiatives</h2>
-              <p class="text-gray-600 mt-1">Policies that have been successfully implemented</p>
-            </div>
+      <section class="mb-20 initiatives-section" id="passed-initiatives">
+        <div class="flex items-center mb-8">
+          <div class="bg-green-100 p-2 rounded-full mr-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
           </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {passedInitiatives.map(initiative => (
-              <a href={`/initiatives/${initiative.slug}`} class="group">
-                <div class="border border-gray-200 bg-white rounded-xl p-6 hover:shadow-xl transition duration-300 h-full flex flex-col relative overflow-hidden">
-                  <div class="absolute top-0 right-0 w-24 h-24 -mr-12 -mt-12 bg-green-100 rounded-full"></div>
-                  <div class="relative">
-                    <h3 class="text-xl font-semibold mt-3 group-hover:text-green-700 transition-colors">{initiative.data.title}</h3>
-                    <p class="text-gray-600 mt-2 flex-grow">{initiative.data.description}</p>
-                  </div>
-                  <div class="flex justify-between items-center mt-6 pt-4 border-t border-gray-100">
-                    <div class="text-sm text-gray-500">
-                      Passed: <span class="font-medium">{initiative.data.datePassed?.toLocaleDateString()}</span>
-                    </div>
-                    <span class="text-green-600 text-sm font-medium flex items-center">
-                      View details
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                      </svg>
-                    </span>
-                  </div>
+          <div>
+            <h2 class="text-3xl font-bold">Passed Initiatives</h2>
+            <p class="text-gray-600 mt-1">Policies that have been successfully implemented</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {passedInitiatives.map(initiative => (
+            <a href={`/initiatives/${initiative.slug}`} class="group initiative-card" data-category={initiative.data.category}>
+              <div class="border border-gray-200 bg-white rounded-xl p-6 hover:shadow-xl transition duration-300 h-full flex flex-col relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-24 h-24 -mr-12 -mt-12 bg-green-100 rounded-full"></div>
+                <div class="relative">
+                  <h3 class="text-xl font-semibold mt-3 group-hover:text-green-700 transition-colors">{initiative.data.title}</h3>
+                  <p class="text-gray-600 mt-2 flex-grow">{initiative.data.description}</p>
                 </div>
-              </a>
-            ))}
-          </div>
-        </section>
-      )}
+                <div class="flex justify-between items-center mt-6 pt-4 border-t border-gray-100">
+                  <div class="text-sm text-gray-500">
+                    Passed: <span class="font-medium">{initiative.data.datePassed?.toLocaleDateString()}</span>
+                  </div>
+                  <span class="text-green-600 text-sm font-medium flex items-center">
+                    View details
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
 
       <!-- In Progress Initiatives -->
-      {inProgressInitiatives.length > 0 && (
-        <section class="mb-20">
-          <div class="flex items-center mb-8">
-            <div class="bg-yellow-100 p-2 rounded-full mr-4">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <div>
-              <h2 class="text-3xl font-bold">In Progress Initiatives</h2>
-              <p class="text-gray-600 mt-1">Policies currently moving through implementation</p>
-            </div>
+      <section class="mb-20 initiatives-section" id="in-progress-initiatives">
+        <div class="flex items-center mb-8">
+          <div class="bg-yellow-100 p-2 rounded-full mr-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
           </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {inProgressInitiatives.map(initiative => (
-              <a href={`/initiatives/${initiative.slug}`} class="group">
-                <div class="border border-gray-200 bg-white rounded-xl p-6 hover:shadow-xl transition duration-300 h-full flex flex-col relative overflow-hidden">
-                  <div class="absolute top-0 right-0 w-24 h-24 -mr-12 -mt-12 bg-yellow-50 rounded-full"></div>
-                  <div class="relative">
-                    <h3 class="text-xl font-semibold mt-3 group-hover:text-yellow-700 transition-colors">{initiative.data.title}</h3>
-                    <p class="text-gray-600 mt-2 flex-grow">{initiative.data.description}</p>
-                  </div>
-                  <div class="flex justify-between items-center mt-6 pt-4 border-t border-gray-100">
-                    <div class="text-sm text-gray-500">
-                      Proposed: <span class="font-medium">{initiative.data.dateProposed.toLocaleDateString()}</span>
-                    </div>
-                    <span class="text-yellow-600 text-sm font-medium flex items-center">
-                      View details
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                      </svg>
-                    </span>
-                  </div>
+          <div>
+            <h2 class="text-3xl font-bold">In Progress Initiatives</h2>
+            <p class="text-gray-600 mt-1">Policies currently moving through implementation</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {inProgressInitiatives.map(initiative => (
+            <a href={`/initiatives/${initiative.slug}`} class="group initiative-card" data-category={initiative.data.category}>
+              <div class="border border-gray-200 bg-white rounded-xl p-6 hover:shadow-xl transition duration-300 h-full flex flex-col relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-24 h-24 -mr-12 -mt-12 bg-yellow-50 rounded-full"></div>
+                <div class="relative">
+                  <h3 class="text-xl font-semibold mt-3 group-hover:text-yellow-700 transition-colors">{initiative.data.title}</h3>
+                  <p class="text-gray-600 mt-2 flex-grow">{initiative.data.description}</p>
                 </div>
-              </a>
-            ))}
-          </div>
-        </section>
-      )}
+                <div class="flex justify-between items-center mt-6 pt-4 border-t border-gray-100">
+                  <div class="text-sm text-gray-500">
+                    Proposed: <span class="font-medium">{initiative.data.dateProposed.toLocaleDateString()}</span>
+                  </div>
+                  <span class="text-yellow-600 text-sm font-medium flex items-center">
+                    View details
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
 
       <!-- Proposed Initiatives with alert styling -->
-      {proposedInitiatives.length > 0 && (
-        <section class="mb-20">
-          <div class="flex items-center mb-8">
-            <div class="bg-blue-100 p-2 rounded-full mr-4">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-              </svg>
-            </div>
-            <div>
-              <h2 class="text-3xl font-bold">Proposed Initiatives</h2>
-              <p class="text-gray-600 mt-1">Policies that have been proposed but not yet implemented</p>
-            </div>
+      <section class="mb-20 initiatives-section" id="proposed-initiatives">
+        <div class="flex items-center mb-8">
+          <div class="bg-blue-100 p-2 rounded-full mr-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+            </svg>
           </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {proposedInitiatives.map(initiative => (
-              <a href={`/initiatives/${initiative.slug}`} class="group">
-                <div class="border border-gray-200 bg-white rounded-xl p-6 hover:shadow-xl transition duration-300 h-full flex flex-col relative overflow-hidden">
-                  <div class="absolute top-0 right-0 w-24 h-24 -mr-12 -mt-12 bg-blue-50 rounded-full"></div>
-                  <div class="relative">
-                    <h3 class="text-xl font-semibold mt-3 group-hover:text-blue-700 transition-colors">{initiative.data.title}</h3>
-                    <p class="text-gray-600 mt-2 flex-grow">{initiative.data.description}</p>
-                  </div>
-                  <div class="flex justify-between items-center mt-6 pt-4 border-t border-gray-100">
-                    <div class="text-sm text-gray-500">
-                      Proposed: <span class="font-medium">{initiative.data.dateProposed.toLocaleDateString()}</span>
-                    </div>
-                    <span class="text-blue-600 text-sm font-medium flex items-center">
-                      View details
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                      </svg>
-                    </span>
-                  </div>
+          <div>
+            <h2 class="text-3xl font-bold">Proposed Initiatives</h2>
+            <p class="text-gray-600 mt-1">Policies that have been proposed but not yet implemented</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {proposedInitiatives.map(initiative => (
+            <a href={`/initiatives/${initiative.slug}`} class="group initiative-card" data-category={initiative.data.category}>
+              <div class="border border-gray-200 bg-white rounded-xl p-6 hover:shadow-xl transition duration-300 h-full flex flex-col relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-24 h-24 -mr-12 -mt-12 bg-blue-50 rounded-full"></div>
+                <div class="relative">
+                  <h3 class="text-xl font-semibold mt-3 group-hover:text-blue-700 transition-colors">{initiative.data.title}</h3>
+                  <p class="text-gray-600 mt-2 flex-grow">{initiative.data.description}</p>
                 </div>
-              </a>
-            ))}
-          </div>
-        </section>
-      )}
+                <div class="flex justify-between items-center mt-6 pt-4 border-t border-gray-100">
+                  <div class="text-sm text-gray-500">
+                    Proposed: <span class="font-medium">{initiative.data.dateProposed.toLocaleDateString()}</span>
+                  </div>
+                  <span class="text-blue-600 text-sm font-medium flex items-center">
+                    View details
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
 
       <!-- Blocked Initiatives with more alert styling -->
-      {blockedInitiatives.length > 0 && (
-        <section class="mb-20">
-          <div class="flex items-center mb-8">
-            <div class="bg-red-100 p-2 rounded-full mr-4">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-              </svg>
-            </div>
-            <div>
-              <h2 class="text-3xl font-bold">Blocked Initiatives</h2>
-              <p class="text-gray-600 mt-1">Policies that have been blocked through legal or legislative means</p>
-            </div>
+      <section class="mb-20 initiatives-section" id="blocked-initiatives">
+        <div class="flex items-center mb-8">
+          <div class="bg-red-100 p-2 rounded-full mr-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
           </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {blockedInitiatives.map(initiative => (
-              <a href={`/initiatives/${initiative.slug}`} class="group">
-                <div class="border border-gray-200 bg-white rounded-xl p-6 hover:shadow-xl transition duration-300 h-full flex flex-col relative overflow-hidden">
-                  <div class="absolute top-0 right-0 w-24 h-24 -mr-12 -mt-12 bg-red-50 rounded-full"></div>
-                  <div class="relative">
-                    <h3 class="text-xl font-semibold mt-3 group-hover:text-red-700 transition-colors">{initiative.data.title}</h3>
-                    <p class="text-gray-600 mt-2 flex-grow">{initiative.data.description}</p>
-                  </div>
-                  <div class="flex justify-between items-center mt-6 pt-4 border-t border-gray-100">
-                    <div class="text-sm text-gray-500">
-                      Blocked: <span class="font-medium">{initiative.data.dateProposed.toLocaleDateString()}</span>
-                    </div>
-                    <span class="text-red-600 text-sm font-medium flex items-center">
-                      View details
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                      </svg>
-                    </span>
-                  </div>
+          <div>
+            <h2 class="text-3xl font-bold">Blocked Initiatives</h2>
+            <p class="text-gray-600 mt-1">Policies that have been blocked through legal or legislative means</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {blockedInitiatives.map(initiative => (
+            <a href={`/initiatives/${initiative.slug}`} class="group initiative-card" data-category={initiative.data.category}>
+              <div class="border border-gray-200 bg-white rounded-xl p-6 hover:shadow-xl transition duration-300 h-full flex flex-col relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-24 h-24 -mr-12 -mt-12 bg-red-50 rounded-full"></div>
+                <div class="relative">
+                  <h3 class="text-xl font-semibold mt-3 group-hover:text-red-700 transition-colors">{initiative.data.title}</h3>
+                  <p class="text-gray-600 mt-2 flex-grow">{initiative.data.description}</p>
                 </div>
-              </a>
-            ))}
-          </div>
-        </section>
-      )}
+                <div class="flex justify-between items-center mt-6 pt-4 border-t border-gray-100">
+                  <div class="text-sm text-gray-500">
+                    Blocked: <span class="font-medium">{initiative.data.dateProposed.toLocaleDateString()}</span>
+                  </div>
+                  <span class="text-red-600 text-sm font-medium flex items-center">
+                    View details
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
 
       <!-- Call to Action with more urgency -->
       <div class="bg-gradient-to-r from-blue-900 to-indigo-900 rounded-2xl p-10 text-center shadow-xl relative overflow-hidden">
@@ -398,4 +438,45 @@ const percentages = {
       </div>
     </div>
   </main>
+
+  <script>
+    // Add JavaScript for category filtering
+    document.addEventListener('DOMContentLoaded', function() {
+      const categoryButtons = document.querySelectorAll('.category-filter');
+      const initiativeCards = document.querySelectorAll('.initiative-card');
+      const initiativeSections = document.querySelectorAll('.initiatives-section');
+      
+      categoryButtons.forEach(button => {
+        button.addEventListener('click', function(this: HTMLElement) {
+          const category = this.getAttribute('data-category');
+          
+          // Update active button UI
+          categoryButtons.forEach(btn => btn.classList.remove('active', 'bg-blue-600', 'text-white'));
+          categoryButtons.forEach(btn => btn.classList.add('bg-white', 'text-gray-800'));
+          this.classList.add('active', 'bg-blue-600', 'text-white');
+          this.classList.remove('bg-white', 'text-gray-800');
+          
+          // Filter the initiatives
+          initiativeCards.forEach(card => {
+            const cardCategory = card.getAttribute('data-category');
+            if (category === 'all' || cardCategory === category) {
+              (card as HTMLElement).style.display = '';
+            } else {
+              (card as HTMLElement).style.display = 'none';
+            }
+          });
+          
+          // Hide section headers if no visible initiatives in that section
+          initiativeSections.forEach(section => {
+            const visibleCards = section.querySelectorAll('.initiative-card[style="display: none;"]');
+            if (visibleCards.length === section.querySelectorAll('.initiative-card').length) {
+              (section as HTMLElement).style.display = 'none';
+            } else {
+              (section as HTMLElement).style.display = '';
+            }
+          });
+        });
+      });
+    });
+  </script>
 </Layout>
