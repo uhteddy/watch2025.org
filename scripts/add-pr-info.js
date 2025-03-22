@@ -1,12 +1,13 @@
 import fs from 'fs';
 import { load, dump } from 'js-yaml';
 
-// Get command line arguments
+// Get command line arguments - now just taking the file path
 const filePath = process.argv[2];
-const prNumber = process.argv[3];
-const prTitle = process.argv[4];
-const author = process.argv[5];
-const mergedAt = process.argv[6];
+// Reading PR data from environment variables instead
+const prNumber = process.env.PR_NUMBER;
+const prTitle = process.env.PR_TITLE;
+const author = process.env.PR_AUTHOR;
+const mergedAt = process.env.PR_MERGED_AT;
 
 // Read the file
 const content = fs.readFileSync(filePath, 'utf8');
