@@ -1,42 +1,60 @@
 ---
-title: "Censorship in Public Schools"
-description: "Project 2025 promotes banning curricula related to critical race theory, LGBTQ+ rights, and progressive views on race and gender."
-status: "proposed"
-category: "Education"
-dateProposed: 2025-01-29
-agency: "Department of Education"
+title: Censorship in Public Schools
+description: >-
+  Project 2025 promotes banning curricula related to critical race theory,
+  LGBTQ+ rights, and progressive views on race and gender.
+status: proposed
+category: Education
+dateProposed: 2025-01-29T00:00:00.000Z
+agency: Department of Education
 impactAreas:
-  - "Curriculum development"
-  - "Teacher autonomy"
-  - "Student exposure to diverse perspectives"
+  - Curriculum development
+  - Teacher autonomy
+  - Student exposure to diverse perspectives
 progressPercentage: 20
 tags:
-  - "censorship"
-  - "critical race theory"
-  - "LGBTQ+ rights"
-  - "education policy"
-priority: "high"
+  - censorship
+  - critical race theory
+  - LGBTQ+ rights
+  - education policy
+priority: high
 leadSponsors:
-  - "The Heritage Foundation"
-  - "Family Research Council"
+  - The Heritage Foundation
+  - Family Research Council
 timeline:
-  - date: 2025-01-29
-    title: "Executive Order Signed"
-    description: "President Trump signed the 'Ending Radical Indoctrination in K-12 Schooling' executive order, aiming to remove certain curricula from public schools."
-    url: "https://www.whitehouse.gov/presidential-actions/2025/01/ending-radical-indoctrination-in-k-12-schooling/"
-  - date: 2025-02-15
-    title: "Department of Education Issues Guidelines"
-    description: "The Department of Education released guidelines for schools to identify and eliminate prohibited content."
-    url: "https://www.edweek.org/policy-politics/president-trumps-early-actions-undo-biden-efforts-to-protect-lgbtq-students/2025/01"
+  - date: 2025-01-29T00:00:00.000Z
+    title: Executive Order Signed
+    description: >-
+      President Trump signed the 'Ending Radical Indoctrination in K-12
+      Schooling' executive order, aiming to remove certain curricula from public
+      schools.
+    url: >-
+      https://www.whitehouse.gov/presidential-actions/2025/01/ending-radical-indoctrination-in-k-12-schooling/
+  - date: 2025-02-15T00:00:00.000Z
+    title: Department of Education Issues Guidelines
+    description: >-
+      The Department of Education released guidelines for schools to identify
+      and eliminate prohibited content.
+    url: >-
+      https://www.edweek.org/policy-politics/president-trumps-early-actions-undo-biden-efforts-to-protect-lgbtq-students/2025/01
 sources:
-  - title: "Executive Order on Ending Radical Indoctrination in K-12 Schooling"
-    url: "https://www.whitehouse.gov/presidential-actions/2025/01/ending-radical-indoctrination-in-k-12-schooling/"
-    description: "Official White House announcement of the executive order."
-  - title: "Trump's orders take aim at critical race theory and antisemitism on campuses"
-    url: "https://apnews.com/article/trump-critical-race-theory-antisemitism-college-protests-18136b8c8f5adb9c75c47907e020268a"
-    description: "Associated Press coverage of the executive order and its implications."
+  - title: Executive Order on Ending Radical Indoctrination in K-12 Schooling
+    url: >-
+      https://www.whitehouse.gov/presidential-actions/2025/01/ending-radical-indoctrination-in-k-12-schooling/
+    description: Official White House announcement of the executive order.
+  - title: >-
+      Trump's orders take aim at critical race theory and antisemitism on
+      campuses
+    url: >-
+      https://apnews.com/article/trump-critical-race-theory-antisemitism-college-protests-18136b8c8f5adb9c75c47907e020268a
+    description: Associated Press coverage of the executive order and its implications.
+pullRequests:
+  - number: 11
+    title: Add Education
+    url: https://github.com/uhteddy/watch2025.org/pull/11
+    author: Censorship
+    mergedAt: uhteddy
 ---
-
 ## Overview
 
 Project 2025 includes an initiative to **ban curricula related to critical race theory (CRT), LGBTQ+ rights, and progressive perspectives on race and gender** in public schools. This effort aims to reshape educational content by removing materials deemed "anti-American" or "subversive."
@@ -64,6 +82,3 @@ Project 2025 includes an initiative to **ban curricula related to critical race 
 - **Ongoing Litigation**: The administration will need to address legal challenges as cases progress through the courts.
 - **Public Engagement**: Efforts to engage with parents and community members to build support for the initiative are planned, including town hall meetings and informational campaigns.
 
----
-
-*Note: This initiative reflects ongoing policy developments as of March 22, 2025. Future updates will be provided as new information becomes available.*
