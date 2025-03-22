@@ -36,10 +36,6 @@ sources:
   - title: Project 2025 Policy Agenda
     url: https://www.project2025.org/policy/
     description: Official documentation on Project 2025 initiatives.
-  - title: Trump administration announces largest deportation operation in history
-    url: >-
-      https://www.ice.gov/news/releases/trump-administration-announces-largest-deportation-operation
-    description: ICE report on mass deportation plans.
   - title: New executive order expands expedited removal of undocumented immigrants
     url: >-
       https://www.whitehouse.gov/presidential-actions/2025/02/new-executive-order-expands-expedited-removal/
