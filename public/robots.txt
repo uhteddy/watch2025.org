@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://watch2025.org/sitemap-index.xml
