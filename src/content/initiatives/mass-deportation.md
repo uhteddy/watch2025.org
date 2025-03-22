@@ -1,47 +1,56 @@
 ---
-title: "Mass Deportations"
-description: "Project 2025 advocates for large-scale deportation operations targeting undocumented immigrants."
-status: "in-progress"
-category: "Immigration"
-dateProposed: 2025-01-01
-agency: "Department of Homeland Security"
+title: Mass Deportations
+description: >-
+  Project 2025 advocates for large-scale deportation operations targeting
+  undocumented immigrants.
+status: in-progress
+category: Immigration
+dateProposed: 2025-01-01T00:00:00.000Z
+agency: Department of Homeland Security
 impactAreas:
-  - "Immigration enforcement"
-  - "Detention and deportation policies"
+  - Immigration enforcement
+  - Detention and deportation policies
 relatedInitiatives:
-  - "border-wall-security"
-  - "expanding-e-verify"
+  - border-wall-security
+  - expanding-e-verify
 progressPercentage: 50
 tags:
-  - "immigration enforcement"
-  - "deportations"
-  - "border security"
-priority: "critical"
+  - immigration enforcement
+  - deportations
+  - border security
+priority: critical
 leadSponsors:
-  - "The Heritage Foundation"
-  - "Project 2025 Coalition"
+  - The Heritage Foundation
+  - Project 2025 Coalition
 timeline:
-  - date: 2025-02-01
-    title: "Executive Order"
-    description: "Executive order signed to expand deportation operations."
-  - date: 2025-02-20
-    title: "ICE"
-    description: "ICE increases nationwide raids targeting undocumented individuals."
-  - date: 2025-03-10
-    title: "DHS"
-    description: "DHS implements expedited removal process for non-citizens."
+  - date: 2025-02-01T00:00:00.000Z
+    title: Executive Order
+    description: Executive order signed to expand deportation operations.
+  - date: 2025-02-20T00:00:00.000Z
+    title: ICE
+    description: ICE increases nationwide raids targeting undocumented individuals.
+  - date: 2025-03-10T00:00:00.000Z
+    title: DHS
+    description: DHS implements expedited removal process for non-citizens.
 sources:
-  - title: "Project 2025 Policy Agenda"
-    url: "https://www.project2025.org/policy/"
-    description: "Official documentation on Project 2025 initiatives."
-  - title: "Trump administration announces largest deportation operation in history"
-    url: "https://www.ice.gov/news/releases/trump-administration-announces-largest-deportation-operation"
-    description: "ICE report on mass deportation plans."
-  - title: "New executive order expands expedited removal of undocumented immigrants"
-    url: "https://www.whitehouse.gov/presidential-actions/2025/02/new-executive-order-expands-expedited-removal/"
-    description: "White House statement on the executive order."
+  - title: Project 2025 Policy Agenda
+    url: https://www.project2025.org/policy/
+    description: Official documentation on Project 2025 initiatives.
+  - title: Trump administration announces largest deportation operation in history
+    url: >-
+      https://www.ice.gov/news/releases/trump-administration-announces-largest-deportation-operation
+    description: ICE report on mass deportation plans.
+  - title: New executive order expands expedited removal of undocumented immigrants
+    url: >-
+      https://www.whitehouse.gov/presidential-actions/2025/02/new-executive-order-expands-expedited-removal/
+    description: White House statement on the executive order.
+pullRequests:
+  - number: 8
+    title: Verbage Changes
+    url: https://github.com/uhteddy/watch2025.org/pull/8
+    author: uhteddy
+    mergedAt: '2025-03-22T01:03:24Z'
 ---
-
 ## Overview
 Project 2025 prioritizes a **nationwide deportation initiative** that significantly expands federal enforcement efforts against undocumented immigrants. This includes **raids, workplace enforcement, and expedited removal proceedings.**
 
