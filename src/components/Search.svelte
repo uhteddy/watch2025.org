@@ -23,18 +23,27 @@
         console.error('Error initializing search:', error);
       }
     });
-  </script>
+</script>
   
-  <div class="search-wrapper">
-    <div class="search-container" class:active={isSearchOpen}>
-      <div bind:this={searchContainer}></div>
-      {#if !isLoaded}
-        <div class="loading">Loading search...</div>
-      {/if}
-    </div>
+<div class="search-wrapper">
+  <div class="search-container" class:active={isSearchOpen}>
+    <div bind:this={searchContainer}></div>
+    {#if !isLoaded}
+      <div class="placeholder-search">
+        <div class="placeholder-input-container">
+          <input 
+            type="text" 
+            class="placeholder-input" 
+            placeholder="Search..." 
+            disabled
+          />
+        </div>
+      </div>
+    {/if}
   </div>
+</div>
   
-  <style>
+<style>
     .search-wrapper {
       position: relative;
       width: 100%;
@@ -44,12 +53,31 @@
       position: relative;
       width: 100%;
     }
-  
-    .loading {
-      text-align: center;
-      padding: 0.5rem;
+    
+    /* Placeholder input styling */
+    .placeholder-search {
+      width: 100%;
+    }
+    
+    .placeholder-input-container {
+      position: relative;
+      margin-bottom: 0;
+    }
+    
+    .placeholder-input {
+      background-color: rgba(23, 23, 23, 0.7);
+      border: 1px solid #4b5563;
       color: #f1f5f9;
-      font-size: 0.875rem;
+      padding: 0.5rem 1rem;
+      width: 100%;
+      backdrop-filter: blur(4px);
+      border-radius: 1rem;
+      font-size: calc(16px * 0.95);
+      font-family: system-ui, sans-serif;
+    }
+    
+    .placeholder-input::placeholder {
+      color: #9ca3af;
     }
   
     /* Base styling for the search UI */

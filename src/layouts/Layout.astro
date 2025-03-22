@@ -21,9 +21,22 @@ const { title } = Astro.props;
                     <span class="tracking-tight">Project 2025 <span class="text-red-600">Tracker</span></span>
                 </a>
                 
-                <div class="md:w-72 lg:w-80">
+                <!-- Search for desktop: hidden on mobile -->
+                <div class="hidden md:block md:w-72 lg:w-80">
                     <Search client:idle />
                 </div>
+                
+                <!-- Search toggle button for mobile -->
+                <button id="search-toggle" class="md:hidden p-2 bg-red-600 hover:bg-red-700 rounded-md transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Mobile search dropdown -->
+            <div id="mobile-search" class="hidden md:hidden px-4 py-2 bg-black border-t border-gray-800">
+                <Search client:idle />
             </div>
             
             <!-- Timeline indicator bar -->
@@ -32,6 +45,16 @@ const { title } = Astro.props;
             </div>
         </header>
         <slot />
+        
+        <script>
+            // Mobile search toggle functionality
+            const searchToggle = document.getElementById('search-toggle');
+            const mobileSearch = document.getElementById('mobile-search');
+            
+            searchToggle?.addEventListener('click', () => {
+                mobileSearch?.classList.toggle('hidden');
+            });
+        </script>
     </body>
 </html>
 
@@ -42,5 +65,22 @@ const { title } = Astro.props;
         width: 100%;
         height: 100%;
         font-family: system-ui, sans-serif;
+    }
+    
+    /* Ensure search results are properly displayed on mobile */
+    :global(.pagefind-ui__drawer) {
+        max-width: 100vw;
+        width: 100%;
+        position: fixed;
+        top: auto;
+        left: 0;
+        right: 0;
+    }
+    
+    @media (min-width: 768px) {
+        :global(.pagefind-ui__drawer) {
+            position: absolute;
+            max-width: none;
+        }
     }
 </style>
